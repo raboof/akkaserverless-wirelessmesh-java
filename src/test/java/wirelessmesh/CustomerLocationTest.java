@@ -1,6 +1,6 @@
 package wirelessmesh;
 
-import io.cloudstate.javasupport.eventsourced.CommandContext;
+import com.akkaserverless.javasdk.eventsourced.CommandContext;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import org.mockito.*;

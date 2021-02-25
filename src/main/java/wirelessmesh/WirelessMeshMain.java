@@ -1,7 +1,7 @@
 package wirelessmesh;
 
 
-import io.cloudstate.javasupport.CloudState;
+import com.akkaserverless.javasdk.AkkaServerless;
 
 import wirelessmesh.domain.CustomerLocationEntity;
 import wirelessmeshservice.Wirelessmeshservice;
@@ -13,7 +13,7 @@ import wirelessmeshdomain.*;
 public class WirelessMeshMain {
 
     public static void main(String... args) {
-        new CloudState()
+        new AkkaServerless()
                 .registerEventSourcedEntity(
                         CustomerLocationEntity.class,
                         Wirelessmeshservice.getDescriptor().findServiceByName("WirelessMeshService"),

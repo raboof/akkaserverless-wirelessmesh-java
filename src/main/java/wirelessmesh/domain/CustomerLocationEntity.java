@@ -1,11 +1,11 @@
  package wirelessmesh.domain;
 
  import com.google.protobuf.Empty;
- import io.cloudstate.javasupport.EntityId;
- import io.cloudstate.javasupport.eventsourced.CommandContext;
- import io.cloudstate.javasupport.eventsourced.CommandHandler;
- import io.cloudstate.javasupport.eventsourced.EventHandler;
- import io.cloudstate.javasupport.eventsourced.EventSourcedEntity;
+ import com.akkaserverless.javasdk.EntityId;
+ import com.akkaserverless.javasdk.eventsourced.CommandContext;
+ import com.akkaserverless.javasdk.eventsourced.CommandHandler;
+ import com.akkaserverless.javasdk.eventsourced.EventHandler;
+ import com.akkaserverless.javasdk.eventsourced.EventSourcedEntity;
 
  import wirelessmesh.DeviceClient;
  import wirelessmesh.PubsubClient;
