@@ -4,7 +4,6 @@ import com.akkaserverless.javasdk.AkkaServerless;
 
 import wirelessmesh.domain.CustomerLocationEntity;
 import wirelessmeshservice.Wirelessmeshservice;
-import wirelessmeshdomain.*;
 
 /**
  * This is the entry point into this user function.
@@ -12,13 +11,6 @@ import wirelessmeshdomain.*;
 public class WirelessMeshMain {
 
     public static void main(String... args) throws Exception {
-//        new AkkaServerless()
-//                .registerEventSourcedEntity(
-//                        CustomerLocationEntity.class,
-//                        Wirelessmeshservice.getDescriptor().findServiceByName("WirelessMeshService"),
-//                        Wirelessmeshdomain.getDescriptor())
-//                .start();
-
         new AkkaServerless()
                 .registerEventSourcedEntity(
                         CustomerLocationEntity.class,
