@@ -1,6 +1,6 @@
 package wirelessmesh;
 
-import io.cloudstate.javasupport.CloudState;
+import com.akkaserverless.javasdk.AkkaServerless;
 
 import wirelessmesh.domain.CustomerLocationEntity;
 import wirelessmeshservice.Wirelessmeshservice;
@@ -11,12 +11,18 @@ import wirelessmeshdomain.*;
  */
 public class WirelessMeshMain {
 
-    public static void main(String... args) {
-        new CloudState()
+    public static void main(String... args) throws Exception {
+//        new AkkaServerless()
+//                .registerEventSourcedEntity(
+//                        CustomerLocationEntity.class,
+//                        Wirelessmeshservice.getDescriptor().findServiceByName("WirelessMeshService"),
+//                        Wirelessmeshdomain.getDescriptor())
+//                .start();
+
+        new AkkaServerless()
                 .registerEventSourcedEntity(
                         CustomerLocationEntity.class,
-                        Wirelessmeshservice.getDescriptor().findServiceByName("WirelessMeshService"),
-                        Wirelessmeshdomain.getDescriptor())
-                .start();
+                        Wirelessmeshservice.getDescriptor().findServiceByName("WirelessMeshService"))
+                .start().toCompletableFuture().get();
     }
 }

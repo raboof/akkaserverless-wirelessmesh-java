@@ -1,11 +1,8 @@
  package wirelessmesh.domain;
 
  import com.google.protobuf.Empty;
- import io.cloudstate.javasupport.EntityId;
- import io.cloudstate.javasupport.eventsourced.CommandContext;
- import io.cloudstate.javasupport.eventsourced.CommandHandler;
- import io.cloudstate.javasupport.eventsourced.EventHandler;
- import io.cloudstate.javasupport.eventsourced.EventSourcedEntity;
+ import com.akkaserverless.javasdk.EntityId;
+ import com.akkaserverless.javasdk.eventsourcedentity.*;
 
  import wirelessmesh.DeviceService;
  import wirelessmesh.GooglePubsubService;
@@ -32,7 +29,7 @@
   * Event sourcing was selected in order to have complete traceability into the behavior of devices for the purposes
   * of security, analytics and simulation.
   */
- @EventSourcedEntity
+ @EventSourcedEntity(entityType = "CustomerLocationEntity")
  public class CustomerLocationEntity {
 
      private PubsubService pubsubService = new GooglePubsubService();
