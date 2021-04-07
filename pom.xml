@@ -14,6 +14,8 @@
         <akkasls.dockerTag>${project.version}</akkasls.dockerTag>
         <jdk.target>11</jdk.target>
         <mainClass>wirelessmesh.WirelessMeshMain</mainClass>
+        <scala.binary.version>2.12</scala.binary.version>
+        <akka.grpc.version>1.1.1</akka.grpc.version>
     </properties>
 
     <build>
@@ -44,6 +46,15 @@
                     <writeDescriptorSet>true</writeDescriptorSet>
                     <checkStaleness>true</checkStaleness>
                     <protocArtifact>com.google.protobuf:protoc:3.9.1:exe:${os.detected.classifier}</protocArtifact>
+                    <protocPlugins>
+                        <protocPlugin>
+                            <id>akka-grpc</id>
+                            <groupId>com.lightbend.akka.grpc</groupId>
+                            <artifactId>akka-grpc-scalapb-protoc-plugin_2.12</artifactId>
+                            <version>${akka.grpc.version}</version>
+                            <mainClass>akka.grpc.gen.Main</mainClass>
+                        </protocPlugin>
+                    </protocPlugins>
                 </configuration>
                 <executions>
                     <execution>
@@ -203,8 +214,8 @@
         </pluginRepository>
     </pluginRepositories>
 
-<!--    <dependencyManagement>-->
-<!--        <dependencies>-->
+    <dependencyManagement>
+        <dependencies>
 <!--            <dependency>-->
 <!--                <groupId>com.google.cloud</groupId>-->
 <!--                <artifactId>libraries-bom</artifactId>-->
@@ -212,15 +223,34 @@
 <!--                <type>pom</type>-->
 <!--                <scope>import</scope>-->
 <!--            </dependency>-->
-<!--        </dependencies>-->
-<!--    </dependencyManagement>-->
+            <dependency>
+              <groupId>com.typesafe.akka</groupId>
+              <artifactId>akka-bom_${scala.binary.version}</artifactId>
+              <version>2.6.13</version>
+              <type>pom</type>
+              <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <dependencies>
 
         <dependency>
             <groupId>com.akkaserverless</groupId>
             <artifactId>akkaserverless-java-sdk</artifactId>
-            <version>0.7.0-beta.1</version>
+	    <version>0.7.0-beta.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.akkaserverless</groupId>
+            <artifactId>akkaserverless-java-sdk-testkit</artifactId>
+            <version>0.7.0-pre-f0321dee-SNAPSHOT</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.lightbend.akka.grpc</groupId>
+            <artifactId>akka-grpc-runtime_2.12</artifactId>
+            <version>${akka.grpc.version}</version>
+            <scope>test</scope>
         </dependency>
 
 <!--        <dependency>-->
@@ -236,13 +266,6 @@
 <!--        </dependency>-->
 
         <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>6.8</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>3.6.0</version>
@@ -250,5 +273,4 @@
         </dependency>
 
     </dependencies>
-
 </project>
