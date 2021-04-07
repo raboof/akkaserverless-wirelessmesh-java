@@ -107,7 +107,7 @@
         <dependency>
             <groupId>com.akkaserverless</groupId>
             <artifactId>akkaserverless-java-sdk</artifactId>
-            <version>0.7-pre-6bb76fc-dev</version>
+            <version>0.7.0-pre-e77dd52c-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>

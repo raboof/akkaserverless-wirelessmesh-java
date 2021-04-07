@@ -2,10 +2,10 @@
 
  import com.google.protobuf.Empty;
  import com.akkaserverless.javasdk.EntityId;
- import com.akkaserverless.javasdk.eventsourced.CommandContext;
- import com.akkaserverless.javasdk.eventsourced.CommandHandler;
- import com.akkaserverless.javasdk.eventsourced.EventHandler;
- import com.akkaserverless.javasdk.eventsourced.EventSourcedEntity;
+ import com.akkaserverless.javasdk.eventsourcedentity.CommandContext;
+ import com.akkaserverless.javasdk.eventsourcedentity.CommandHandler;
+ import com.akkaserverless.javasdk.eventsourcedentity.EventHandler;
+ import com.akkaserverless.javasdk.eventsourcedentity.EventSourcedEntity;
 
  import wirelessmesh.DeviceClient;
  import wirelessmesh.PubsubClient;
@@ -29,7 +29,7 @@
   * Event sourcing was selected in order to have complete traceability into the behavior of devices for the purposes
   * of security, analytics and simulation.
   */
- @EventSourcedEntity
+ @EventSourcedEntity(entityType = "customer")
  public class CustomerLocationEntity {
 
      /**
