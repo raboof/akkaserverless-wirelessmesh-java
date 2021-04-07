@@ -1,8 +1,8 @@
 package wirelessmesh;
 
 import com.akkaserverless.javasdk.eventsourcedentity.CommandContext;
-import org.testng.Assert;
-import org.testng.annotations.*;
+import org.junit.Assert;
+import org.junit.Test;
 import org.mockito.*;
 
 import wirelessmesh.domain.CustomerLocationEntity;
@@ -21,6 +21,8 @@ public class CustomerLocationTest {
     String customerLocationId = "customerId1";
     String accessToken = "accessToken";
     String room = "person-cave";
+
+    public CustomerLocationTest() {}
 
     @Test
     public void addCustomerLocationTest() {
