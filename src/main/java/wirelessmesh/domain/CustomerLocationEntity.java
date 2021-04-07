@@ -5,8 +5,8 @@
  import com.akkaserverless.javasdk.eventsourcedentity.*;
 
  import wirelessmesh.DeviceService;
- import wirelessmesh.GooglePubsubService;
  import wirelessmesh.LifxDeviceService;
+ import wirelessmesh.NoopPubsubService;
  import wirelessmesh.PubsubService;
  import wirelessmeshdomain.Wirelessmeshdomain.*;
  import wirelessmeshservice.Wirelessmeshservice.*;
@@ -32,7 +32,7 @@
  @EventSourcedEntity(entityType = "CustomerLocationEntity")
  public class CustomerLocationEntity {
 
-     private PubsubService pubsubService = new GooglePubsubService();
+     private PubsubService pubsubService = new NoopPubsubService();
      private DeviceService deviceService = new LifxDeviceService();
 
      /**
