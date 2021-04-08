@@ -2,7 +2,7 @@ package wirelessmesh;
 
 import com.akkaserverless.javasdk.eventsourcedentity.CommandContext;
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.mockito.*;
 
 import wirelessmesh.domain.CustomerLocationEntity;

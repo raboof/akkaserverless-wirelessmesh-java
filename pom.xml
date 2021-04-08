@@ -116,6 +116,13 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>5.7.1</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -128,7 +135,7 @@
         <dependency>
             <groupId>com.akkaserverless</groupId>
             <artifactId>akkaserverless-java-sdk-testkit</artifactId>
-            <version>0.7.0-pre-f0321dee-SNAPSHOT</version>
+            <version>0.7.0-beta.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -146,6 +153,11 @@
         <dependency>
             <groupId>com.google.cloud</groupId>
             <artifactId>google-cloud-pubsub</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+	    <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>

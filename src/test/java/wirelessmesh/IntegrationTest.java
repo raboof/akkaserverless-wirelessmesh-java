@@ -3,9 +3,10 @@ package wirelessmesh;
 import com.akkaserverless.javasdk.AkkaServerless;
 import com.akkaserverless.javasdk.testkit.junit.AkkaServerlessTestkitResource;
 import com.akkaserverless.javasdk.testkit.junit.jupiter.AkkaServerlessTest;
+import com.akkaserverless.javasdk.testkit.junit.jupiter.AkkaServerlessDescriptor;
 import io.grpc.StatusRuntimeException;
 import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import wirelessmeshdomain.Wirelessmeshdomain.*;
 import wirelessmeshservice.WirelessMeshServiceClient;
 import wirelessmeshservice.Wirelessmeshservice.*;
@@ -22,7 +23,7 @@ import static org.junit.Assert.assertTrue;
 
 @AkkaServerlessTest
 public class IntegrationTest {
-
+    @AkkaServerlessDescriptor
     private static final AkkaServerless WIRELESS_MESH = WirelessMeshMain.wirelessMeshService;
 
     @ClassRule
@@ -33,8 +34,8 @@ public class IntegrationTest {
     String accessToken = "accessToken";
     String room = "person-cave";
 
-    public IntegrationTest() {
-        this.client = WirelessMeshServiceClient.create(testkit.getGrpcClientSettings(), testkit.getActorSystem());
+    public IntegrationTest(WirelessMeshServiceClient client) {
+        this.client = client;
     }
 
     @Test
