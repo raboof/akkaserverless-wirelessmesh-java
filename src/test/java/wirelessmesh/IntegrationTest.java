@@ -2,7 +2,6 @@ package wirelessmesh;
 
 import com.akkaserverless.javasdk.AkkaServerless;
 import com.akkaserverless.javasdk.testkit.junit.AkkaServerlessTestkitResource;
-import com.akkaserverless.javasdk.testkit.junit.jupiter.AkkaServerlessTest;
 import io.grpc.StatusRuntimeException;
 import org.junit.ClassRule;
 import org.junit.Test;
@@ -20,7 +19,6 @@ import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-@AkkaServerlessTest
 public class IntegrationTest {
 
     private static final AkkaServerless WIRELESS_MESH = WirelessMeshMain.wirelessMeshService;
