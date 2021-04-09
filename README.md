@@ -5,7 +5,6 @@ A Java-based example app for [Akka Serverless](https://developer.lightbend.com/d
 Features include:
 
 * Customer locations with wireless mesh devices
-* Connectivity to Google Cloud Pubsub
 
 ## What is this example?
 
@@ -21,7 +20,6 @@ To build and deploy this example application, you'll need to have:
 * Java 11 or higher installed
 * Maven 3.x or higher installed
 * The Docker CLI installed
-* A [service account](https://cloud.google.com/docs/authentication/production) that can connect to Google Cloud Pubsub
 
 ## Build, Deploy, and Test
 
@@ -33,43 +31,16 @@ If you have an LIFX bulb and would like it to stand in for a wirelessmesh device
 * When you activate the device in this app, make sure it has the same device id as your bulb.
 * More information [here][https://api.developer.lifx.com]
 
-### Prepare your Google Cloud Pubsub
-
-To connect to Google Cloud Pubsub, the easiest method is authenticate using a service account. To create your [service account](https://cloud.google.com/docs/authentication/production#cloud-console). After creating your service account, you need to download the service account key as a JSON file called `mycreds.json`.
-
-To publish events to google pubsub locally, set the environment variable GOOGLE_PROJECT_ID to match your project id. You will need to create a the topic '"'wirelessmesh'
-
-examples to set local variables for testing (mac os):
-* export GOOGLE_APPLICATION_CREDENTIALS='/Users/memyselfandI/Downloads/mycreds.json'
-* export GOOGLE_PROJECT_ID='diesel-broccoli-266021'
-
-Be sure to set GOOGLE_PROJECT_ID during your akkaserverless deploy as well.
-
-Next, you'll need to build a base image that contains the `mycreds.json` file and sets the environment variable `GOOGLE_APPLICATION_CREDENTIALS` to the service account key. You can build the docker image with by running:
-
-```bash
-docker build -f prereq.Dockerfile . -t mybaseimage
-```
-
-_the new container will be named `mybaseimage` and will be used in subsequent steps. Note that pushing containers with service account keys to a public docker registry is a potentially dangerous situation._
-
 ### Build your container
 
-To build your own container, follow the below steps
+To build your own container, run `mvn -Dnamespace=<namespace> clean install`, substituting `<namespace>` for a docker registry namespace you have write access to (for example your dockerhub username).
 
-1. If you haven't completed the previous step, because you don't need to connect to Google Cloud Pubsub, change `mybaseimage` on [line 58](https://github.com/lightbend-labs/akkaserverless-wirelessmesh-java/blob/main/pom.xml#L58) to `adoptopenjdk/openjdk8`
-1. Update [line 56](https://github.com/lightbend-labs/akkaserverless-wirelessmesh-java/blob/main/pom.xml#L56) of the `pom.xml` file with your Docker Hub username.
-1. Run `mvn clean install`
+This command will create a new Docker image.
 
-The command `mvn clean install` will create a new Docker image based on `adoptopenjdk/openjdk8`.
-
-The result of the command should be
+The result of the command should be:
 
 ```bash
-$ mvn clean install
-
 ...
-
 [INFO] ------------------------------------------------------------------------
 [INFO] BUILD SUCCESS
 [INFO] ------------------------------------------------------------------------
@@ -82,7 +53,7 @@ $ mvn clean install
 
 To deploy the container as a service in Akka Serverless, you'll need to:
 
-1. Push the container to a container registry: `docker push -t <registry url>/<registry username>/akkaserverless-wirelessmesh-java:latest`
+1. Push the container to a container registry: `docker push -t <registry url>/<registry namespace>/akkaserverless-wirelessmesh-java:latest`
 1. Deploy the service in Akka Serverless: `akkasls svc deploy wirelessmesh <registry url>/<registry username>/akkaserverless-wirelessmesh-java:latest`
 
 _The above command will deploy your container to your default project with the name `wirelessmesh`. If you want to have a different name, you can change that._

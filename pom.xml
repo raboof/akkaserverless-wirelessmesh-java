@@ -10,7 +10,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <akkasls.dockerImage>${project.artifactId}</akkasls.dockerImage>
+        <akkasls.dockerImage>${namespace}/${project.artifactId}</akkasls.dockerImage>
         <akkasls.dockerTag>${project.version}</akkasls.dockerTag>
         <jdk.target>11</jdk.target>
         <mainClass>wirelessmesh.WirelessMeshMain</mainClass>
