@@ -72,49 +72,48 @@ message CustomerLocation {
 service WirelessMeshService {
     rpc AddCustomerLocation(AddCustomerLocationCommand) returns (google.protobuf.Empty) {
         option (google.api.http) = {
-            post: "/wirelessmesh/add-customer-location",
-            body: "*",
+            post: "/wirelessmesh/add-customer-location"
+            body: "*"
         };
     }
-
     rpc RemoveCustomerLocation(RemoveCustomerLocationCommand) returns (google.protobuf.Empty) {
         option (google.api.http) = {
-            post: "/wirelessmesh/remove-customer-location",
-            body: "*",
+            post: "/wirelessmesh/remove-customer-location"
+            body: "*"
         };
     }
 
     rpc ActivateDevice(ActivateDeviceCommand) returns (google.protobuf.Empty) {
         option (google.api.http) = {
-            post: "/wirelessmesh/activate-device",
-            body: "*",
+            post: "/wirelessmesh/activate-device"
+            body: "*"
         };
     }
 
     rpc RemoveDevice(RemoveDeviceCommand) returns (google.protobuf.Empty) {
         option (google.api.http) = {
-            post: "/wirelessmesh/remove-device",
-            body: "*",
+            post: "/wirelessmesh/remove-device"
+            body: "*"
         };
     }
 
     rpc AssignRoom(AssignRoomCommand) returns (google.protobuf.Empty) {
         option (google.api.http) = {
-            post: "/wirelessmesh/assign-room",
-            body: "*",
+            post: "/wirelessmesh/assign-room"
+            body: "*"
         };
     }
 
     rpc GetCustomerLocation(GetCustomerLocationCommand) returns (CustomerLocation) {
         option (google.api.http) = {
-            get: "/wirelessmesh/get-customer-location",
+            get: "/wirelessmesh/get-customer-location"
         };
     }
 
     rpc ToggleNightlight(ToggleNightlightCommand) returns (google.protobuf.Empty) {
         option (google.api.http) = {
-            post: "/wirelessmesh/toggle-nightlight",
-            body: "*",
+            post: "/wirelessmesh/toggle-nightlight"
+            body: "*"
         };
     }
 }
