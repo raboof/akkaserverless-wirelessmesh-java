@@ -2,6 +2,8 @@
 
  import com.akkaserverless.javasdk.action.Action;
  import com.akkaserverless.javasdk.action.Handler;
+ import com.google.protobuf.Empty;
+ import com.google.protobuf.any.Any;
  import wirelessmeshdomain.Wirelessmeshdomain.*;
 
  /**
@@ -12,5 +14,10 @@
      @Handler
      public CustomerLocationAdded publishCustomerLocationAdded(CustomerLocationAdded event) {
          return event;
+     }
+
+     @Handler
+     public Empty catchOthers(Any event) {
+         return Empty.getDefaultInstance();
      }
  }
