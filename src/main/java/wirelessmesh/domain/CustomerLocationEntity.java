@@ -81,7 +81,6 @@
                      .build();
 
              ctx.emit(event);
-             pubsubService.publish(event.toByteString());
          }
 
          return Empty.getDefaultInstance();

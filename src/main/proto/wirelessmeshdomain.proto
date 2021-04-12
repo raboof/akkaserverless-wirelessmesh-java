@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+import "akkaserverless/annotations.proto";
+
 /**
 * This is where we define our domain, in this case the events that will be stored.
 **/
@@ -8,6 +10,19 @@ package wirelessmeshdomain;
 message CustomerLocationAdded {
     string customerLocationId = 1;
     string accessToken = 2;
+}
+
+service PubSubPublisherService {
+    rpc PublishCustomerLocationAdded(CustomerLocationAdded) returns (CustomerLocationAdded) {
+        option (akkaserverless.method).eventing = {
+            in: {
+                event_log: "CustomerLocationEntity";
+            }
+            out: {
+                topic: "wirelessmesh";
+            }
+        };
+    }
 }
 
 message CustomerLocationRemoved {

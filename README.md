@@ -20,6 +20,7 @@ To build and deploy this example application, you'll need to have:
 * Java 11 or higher installed
 * Maven 3.x or higher installed
 * The Docker CLI installed
+* A [service account](https://cloud.google.com/docs/authentication/production) that can connect to your Google Cloud Pubsub
 
 ## Build, Deploy, and Test
 
@@ -30,6 +31,18 @@ If you have an LIFX bulb and would like it to stand in for a wirelessmesh device
 * When you create your customer location, be sure to set the access token to the authorizaton token you requested with LIFX.
 * When you activate the device in this app, make sure it has the same device id as your bulb.
 * More information [here][https://api.developer.lifx.com]
+
+### Prepare your Google Could Pubsub
+
+Create a Pub/Sub topic called 'wirelessmesh' under your own Google Cloud account.
+
+To connect Akka Serverless to your Google Cloud Pub/Sub you must authenticate using a service account. To create your [service account](https://cloud.google.com/docs/authentication/production#cloud-console). After creating your service account, you need to download the service account key as a JSON file.
+
+Now use the [akkasls](https://developer.lightbend.com/docs/akka-serverless/getting-started/set-up-development-env.html) command-line tool to give Akka Serverless access to your broker:
+
+```
+akkasls project set broker --broker-service gcp-pubsub --gcp-project-id testing-pubsub-310212 --gcp-key-file testing-pubsub-310212-fec7d0612927.json
+```
 
 ### Build your container
 
