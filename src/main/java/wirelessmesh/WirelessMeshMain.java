@@ -26,13 +26,13 @@ public class WirelessMeshMain {
                                     .findServiceByName("CustomerLocationByEmailService"),
                             "customer_locations",
                             Wirelessmeshdomain.getDescriptor(),
-                            Customerlocationview.getDescriptor())
-                    .registerAction(
-                            new PublishingAction(),
-                            Publishing.getDescriptor().findServiceByName("PublishingService"))
-                    .registerAction(
-                            new ToggleNightlightAction(),
-                            Devicecontrol.getDescriptor().findServiceByName("DeviceControlService"));
+                            Customerlocationview.getDescriptor());
+//                    .registerAction(
+//                            new PublishingAction(),
+//                            Publishing.getDescriptor().findServiceByName("PublishingService"))
+//                    .registerAction(
+//                            new ToggleNightlightAction(),
+//                            Devicecontrol.getDescriptor().findServiceByName("DeviceControlService"));
 
     public static void main(String... args) throws Exception {
         wirelessMeshService.start().toCompletableFuture().get();
