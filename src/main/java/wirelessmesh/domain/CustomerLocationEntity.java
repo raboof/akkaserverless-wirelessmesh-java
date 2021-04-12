@@ -8,8 +8,8 @@ import wirelessmesh.DeviceService;
 import wirelessmesh.LifxDeviceService;
 import wirelessmesh.NoopPubsubService;
 import wirelessmesh.PubsubService;
-import wirelessmeshservice.Wirelessmeshservice.*;
-import wirelessmeshdomain.Wirelessmeshdomain.*;
+import wirelessmesh.service.*;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

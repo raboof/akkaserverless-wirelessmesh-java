@@ -4,12 +4,15 @@ import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
 import "akkaserverless/annotations.proto";
 
-import "wirelessmeshdomain.proto";
+import "domain/wirelessmeshdomain.proto";
 
 /**
 * This is where we define our service and how the outside world will interact with our user function.
 **/
 package wirelessmeshservice;
+
+option java_multiple_files = true;
+option java_package = "wirelessmesh.service";
 
 /**
 * The following section contains the message definitions needed for the service below.
@@ -124,11 +127,11 @@ service WirelessMeshService {
         };
     }
 
-    rpc ForwardCustomerLocationAdded(CustomerLocationAdded) returns (google.protobuf.Empty) {
-        option (akkaserverless.method).eventing = {
-            in: {
-              event_log:  "CustomerLocationEntity"
-            }
-        };
-    };
+//    rpc ForwardCustomerLocationAdded(wirelessmeshdomain.CustomerLocationAdded) returns (google.protobuf.Empty) {
+//        option (akkaserverless.method).eventing = {
+//            in: {
+//              event_log:  "CustomerLocationEntity"
+//            }
+//        };
+//    };
 }

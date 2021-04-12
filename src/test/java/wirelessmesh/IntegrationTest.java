@@ -5,8 +5,9 @@ import com.akkaserverless.javasdk.testkit.junit.AkkaServerlessTestkitResource;
 import io.grpc.StatusRuntimeException;
 import org.junit.ClassRule;
 import org.junit.Test;
-import wirelessmeshservice.WirelessMeshServiceClient;
-import wirelessmeshservice.Wirelessmeshservice.*;
+
+import wirelessmesh.domain.*;
+import wirelessmesh.service.*;
 
 import java.io.IOException;
 import java.util.ArrayList;

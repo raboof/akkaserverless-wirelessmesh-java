@@ -3,8 +3,8 @@ package wirelessmesh;
 import com.akkaserverless.javasdk.AkkaServerless;
 
 import wirelessmesh.domain.CustomerLocationEntity;
-import wirelessmeshdomain.Wirelessmeshdomain;
-import wirelessmeshservice.Wirelessmeshservice;
+import wirelessmesh.domain.Wirelessmeshdomain;
+import wirelessmesh.service.*;
 
 /**
  * This is the entry point into this user function.
