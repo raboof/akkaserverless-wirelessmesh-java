@@ -4,10 +4,6 @@ import com.google.protobuf.Empty;
 import com.akkaserverless.javasdk.EntityId;
 import com.akkaserverless.javasdk.eventsourcedentity.*;
 
-import wirelessmesh.DeviceService;
-import wirelessmesh.LifxDeviceService;
-import wirelessmesh.NoopPubsubService;
-import wirelessmesh.PubsubService;
 import wirelessmeshdomain.Wirelessmeshdomain.*;
 import wirelessmesh.Wirelessmesh.*;
 
@@ -31,9 +27,6 @@ import java.util.stream.Stream;
   */
  @EventSourcedEntity(entityType = "customer_location-entity")
  public class CustomerLocationEntity {
-
-     private PubsubService pubsubService = new NoopPubsubService();
-     private DeviceService deviceService = new LifxDeviceService();
 
      /**
       * This section contains the private state variables necessary for this entity.
@@ -84,7 +77,6 @@ import java.util.stream.Stream;
                      .build();
 
              ctx.emit(event);
-             pubsubService.publish(event.toByteString());
          }
 
          return Empty.getDefaultInstance();
@@ -124,7 +116,6 @@ import java.util.stream.Stream;
                      .build();
 
              ctx.emit(event);
-             pubsubService.publish(event.toByteString());
          }
 
          return Empty.getDefaultInstance();
@@ -167,7 +158,6 @@ import java.util.stream.Stream;
                      .build();
 
              ctx.emit(event);
-             pubsubService.publish(event.toByteString());
          }
 
          return Empty.getDefaultInstance();
@@ -209,7 +199,6 @@ import java.util.stream.Stream;
                      .setCustomerLocationId(removeDeviceCommand.getCustomerLocationId()).build();
 
              ctx.emit(event);
-             pubsubService.publish(event.toByteString());
          }
 
          return Empty.getDefaultInstance();
@@ -251,7 +240,6 @@ import java.util.stream.Stream;
                      .setRoom(assignRoomCommand.getRoom()).build();
 
              ctx.emit(event);
-             pubsubService.publish(event.toByteString());
          }
 
          return Empty.getDefaultInstance();
@@ -297,8 +285,6 @@ import java.util.stream.Stream;
                          .setNightlightOn(!deviceMaybe.get().getNightlightOn()).build();
 
                  ctx.emit(event);
-                 deviceService.toggleNightlight(accessToken, toggleNightlightCommand.getDeviceId());
-                 pubsubService.publish(event.toByteString());
              }
          }
 
@@ -323,7 +309,7 @@ import java.util.stream.Stream;
 
      /**
       * This is the command handler geting the current state of the devices as defined in protobuf.
-      * @param GetCustomerLocationCommand the command message from protobuf
+      * @param getCustomerLocationCommand the command message from protobuf
       * @param ctx the application context
       * @return Empty (unused)
       */

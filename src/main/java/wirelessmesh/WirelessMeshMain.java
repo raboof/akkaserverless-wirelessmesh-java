@@ -3,6 +3,8 @@ package wirelessmesh;
 import com.akkaserverless.javasdk.AkkaServerless;
 
 import customerlocationview.Customerlocationview;
+import publishing.Publishing;
+import devicecontrol.Devicecontrol;
 import wirelessmesh.domain.CustomerLocationEntity;
 import wirelessmesh.domain.CustomerLocationView;
 import wirelessmeshdomain.Wirelessmeshdomain;
@@ -24,7 +26,13 @@ public class WirelessMeshMain {
                                     .findServiceByName("CustomerLocationByEmailService"),
                             "customer_locations",
                             Wirelessmeshdomain.getDescriptor(),
-                            Customerlocationview.getDescriptor());
+                            Customerlocationview.getDescriptor())
+                    .registerAction(
+                            new PublishingAction(),
+                            Publishing.getDescriptor().findServiceByName("PublishingService"))
+                    .registerAction(
+                            new ToggleNightlightAction(),
+                            Devicecontrol.getDescriptor().findServiceByName("DeviceControlService"));
 
     public static void main(String... args) throws Exception {
         wirelessMeshService.start().toCompletableFuture().get();
