@@ -10,7 +10,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <akkasls.dockerImage>${namespace}/${project.artifactId}</akkasls.dockerImage>
+        <akkasls.dockerImage>${project.artifactId}</akkasls.dockerImage>
         <akkasls.dockerTag>${project.version}</akkasls.dockerTag>
         <jdk.target>11</jdk.target>
         <mainClass>wirelessmesh.WirelessMeshMain</mainClass>
@@ -42,25 +42,6 @@
                     <target>${jdk.target}</target>
                 </configuration>
             </plugin>
-
-<!--    THIS MATCHES THE CODE GENERATION POM, BUT WILL NOT ALLOW THE INTEGRATION TEST TO WORK. -->
-<!--            <plugin>-->
-<!--                <groupId>org.xolstice.maven.plugins</groupId>-->
-<!--                <artifactId>protobuf-maven-plugin</artifactId>-->
-<!--                <version>0.6.1</version>-->
-<!--                <configuration>-->
-<!--                    <writeDescriptorSet>true</writeDescriptorSet>-->
-<!--                    <checkStaleness>true</checkStaleness>-->
-<!--                    <protocArtifact>com.google.protobuf:protoc:3.9.1:exe:${os.detected.classifier}</protocArtifact>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <goals>-->
-<!--                            <goal>compile</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
 
             <plugin>
                 <groupId>org.xolstice.maven.plugins</groupId>
