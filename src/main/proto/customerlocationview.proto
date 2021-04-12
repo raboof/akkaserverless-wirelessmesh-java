@@ -34,7 +34,7 @@ service CustomerLocationByEmailService {
           query: "select * from customer_locations where email = :email"
         };
         option (google.api.http) = {
-          get: "wirelessmesh/customer-locations"
+          get: "/wirelessmesh/customer-locations"
         };
     }
 }
