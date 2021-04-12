@@ -7,7 +7,6 @@ import org.junit.ClassRule;
 import org.junit.Test;
 
 import wirelessmesh.service.*;
-import wirelessmesh.common.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
