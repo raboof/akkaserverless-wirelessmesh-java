@@ -10,3 +10,31 @@ option java_multiple_files = true;
 option java_package = "wirelessmesh.view";
 
 import "domain/wirelessmeshdomain.proto";
+import "common/wirelessmeshcommon.proto";
+
+message CustomerLocationByEmailRequest {
+    string email = 1;
+}
+
+// TODO: This service should subscribe to the CustomerLocationAdded event and update the customer location by email view.
+service CustomerLocationByEmail {
+    rpc UpdateCustomerLocation(wirelessmeshcommon.CustomerLocation) returns (wirelessmeshcommon.CustomerLocation) {
+        option (akkaserverless.method).eventing = {
+          in: {
+            value_changes: "customer-locations"
+          }
+        };
+        option (akkaserverless.method).view.update = {
+          table: "customer-locations"
+        };
+    }
+
+    rpc GetCustomerLocationByEmail(CustomerLocationByEmailRequest) returns (stream wirelessmeshcommon.CustomerLocation) {
+        option (akkaserverless.method).view.query = {
+          query: "select * from customer_locations where email = :email"
+        };
+        option (google.api.http) = {
+          get: "/customer-locations"
+        };
+    }
+}

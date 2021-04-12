@@ -4,7 +4,7 @@ import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
 import "akkaserverless/annotations.proto";
 
-import "domain/wirelessmeshdomain.proto";
+import "common/wirelessmeshcommon.proto";
 
 /**
 * This is where we define our service and how the outside world will interact with our user function.
@@ -53,27 +53,6 @@ message GetCustomerLocationCommand {
     string customerLocationId = 1 [(akkaserverless.field).entity_key = true];
 }
 
-message Device {
-    string deviceId = 1;
-    bool activated = 2;
-    string customerLocationId = 3;
-    string room = 4;
-    bool nightlightOn = 5;
-}
-
-message CustomerLocation {
-    string customerLocationId = 1;
-    string accessToken = 2;
-    string email = 3;
-    bool added = 4;
-    bool removed = 5;
-    repeated Device devices = 6;
-}
-
-message CustomerLocationByEmailRequest {
-    string email = 1;
-}
-
 /**
 * The service definition. Note: GRPC is the default mechanism, but the google.api.http option gives us http capability
 * for free.
@@ -114,7 +93,7 @@ service WirelessMeshService {
         };
     }
 
-    rpc GetCustomerLocation(GetCustomerLocationCommand) returns (CustomerLocation) {
+    rpc GetCustomerLocation(GetCustomerLocationCommand) returns (wirelessmeshcommon.CustomerLocation) {
         option (google.api.http) = {
             get: "/wirelessmesh/get-customer-location",
         };
@@ -126,12 +105,4 @@ service WirelessMeshService {
             body: "*",
         };
     }
-
-//    rpc ForwardCustomerLocationAdded(wirelessmeshdomain.CustomerLocationAdded) returns (google.protobuf.Empty) {
-//        option (akkaserverless.method).eventing = {
-//            in: {
-//              event_log:  "CustomerLocationEntity"
-//            }
-//        };
-//    };
 }

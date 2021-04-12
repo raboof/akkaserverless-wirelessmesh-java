@@ -6,8 +6,8 @@ import io.grpc.StatusRuntimeException;
 import org.junit.ClassRule;
 import org.junit.Test;
 
-import wirelessmesh.domain.*;
 import wirelessmesh.service.*;
+import wirelessmesh.common.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
