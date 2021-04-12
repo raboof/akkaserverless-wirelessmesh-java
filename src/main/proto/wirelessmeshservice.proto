@@ -17,51 +17,51 @@ option java_package = "wirelessmesh.service";
 **/
 
 message AddCustomerLocationCommand {
-    string customerLocationId = 1 [(akkaserverless.field).entity_key = true];
-    string accessToken = 2;
+    string customer_location_id = 1 [(akkaserverless.field).entity_key = true];
+    string access_token = 2;
     string email = 3;
 }
 
 message RemoveCustomerLocationCommand {
-    string customerLocationId = 1 [(akkaserverless.field).entity_key = true];
+    string customer_location_id = 1 [(akkaserverless.field).entity_key = true];
 }
 
 message ActivateDeviceCommand {
-    string customerLocationId = 1 [(akkaserverless.field).entity_key = true];
+    string customer_location_id = 1 [(akkaserverless.field).entity_key = true];
     string deviceId = 2;
 }
 
 message AssignRoomCommand {
-    string customerLocationId = 1 [(akkaserverless.field).entity_key = true];
+    string customer_location_id = 1 [(akkaserverless.field).entity_key = true];
     string deviceId = 2;
     string room = 3;
 }
 
 message RemoveDeviceCommand {
-    string customerLocationId = 1 [(akkaserverless.field).entity_key = true];
+    string customer_location_id = 1 [(akkaserverless.field).entity_key = true];
     string deviceId = 2;
 }
 
 message ToggleNightlightCommand {
-    string customerLocationId = 1 [(akkaserverless.field).entity_key = true];
+    string customer_location_id = 1 [(akkaserverless.field).entity_key = true];
     string deviceId = 2;
 }
 
 message GetCustomerLocationCommand {
-    string customerLocationId = 1 [(akkaserverless.field).entity_key = true];
+    string customer_location_id = 1 [(akkaserverless.field).entity_key = true];
 }
 
 message Device {
     string deviceId = 1;
     bool activated = 2;
-    string customerLocationId = 3;
+    string customer_location_id = 3;
     string room = 4;
-    bool nightlightOn = 5;
+    bool nightlight_on = 5;
 }
 
 message CustomerLocation {
-    string customerLocationId = 1;
-    string accessToken = 2;
+    string customer_location_id = 1;
+    string access_token = 2;
     string email = 3;
     bool added = 4;
     bool removed = 5;
