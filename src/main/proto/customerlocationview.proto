@@ -4,10 +4,7 @@ import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
 import "akkaserverless/annotations.proto";
 
-package wirelessmeshsview;
-
-option java_multiple_files = true;
-option java_outer_classname = "CustomerLocationByEmailProto";
+package customerlocationview;
 
 import "domain/wirelessmeshdomain.proto";
 
@@ -25,11 +22,12 @@ service CustomerLocationByEmailService {
     rpc UpdateCustomerLocation(wirelessmeshdomain.CustomerLocationAdded) returns (CustomerLocationDto) {
         option (akkaserverless.method).eventing = {
           in: {
-            value_changes: "customer-locations"
+            value_changes: "customer_location-entity"
           }
         };
         option (akkaserverless.method).view.update = {
           table: "customer-locations"
+          transform_updates: true
         };
     }
 

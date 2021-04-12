@@ -7,10 +7,7 @@ import "akkaserverless/annotations.proto";
 /**
 * This is where we define our service and how the outside world will interact with our user function.
 **/
-package wirelessmeshservice;
-
-option java_multiple_files = true;
-option java_outer_classname = "WirelessMesh";
+package wirelessmesh;
 
 /**
 * The following section contains the message definitions needed for the service below.

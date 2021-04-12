@@ -8,7 +8,8 @@ import wirelessmesh.DeviceService;
 import wirelessmesh.LifxDeviceService;
 import wirelessmesh.NoopPubsubService;
 import wirelessmesh.PubsubService;
-import wirelessmeshservice.*;
+import wirelessmeshdomain.Wirelessmeshdomain.*;
+import wirelessmesh.Wirelessmesh.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ import java.util.stream.Stream;
   * Event sourcing was selected in order to have complete traceability into the behavior of devices for the purposes
   * of security, analytics and simulation.
   */
- @EventSourcedEntity(entityType = "CustomerLocationEntity")
+ @EventSourcedEntity(entityType = "customer_location-entity")
  public class CustomerLocationEntity {
 
      private PubsubService pubsubService = new NoopPubsubService();

@@ -2,9 +2,10 @@ package wirelessmesh;
 
 import com.akkaserverless.javasdk.AkkaServerless;
 
+import customerlocationview.Customerlocationview;
 import wirelessmesh.domain.CustomerLocationEntity;
 import wirelessmesh.domain.CustomerLocationView;
-import wirelessmesh.domain.Wirelessmeshdomain;
+import wirelessmeshdomain.Wirelessmeshdomain;
 
 /**
  * This is the entry point into this user function.
@@ -14,16 +15,16 @@ public class WirelessMeshMain {
             new AkkaServerless()
                     .registerEventSourcedEntity(
                             CustomerLocationEntity.class,
-                            wirelessmeshservice.WirelessMesh.getDescriptor().findServiceByName("WirelessMeshService"),
+                            Wirelessmesh.getDescriptor().findServiceByName("WirelessMeshService"),
                             Wirelessmeshdomain.getDescriptor()
                     )
                     .registerView(
                             CustomerLocationView.class,
-                            wirelessmeshsview.CustomerLocationByEmailProto.getDescriptor()
+                            Customerlocationview.getDescriptor()
                                     .findServiceByName("CustomerLocationByEmailService"),
                             "customer_locations",
                             Wirelessmeshdomain.getDescriptor(),
-                            wirelessmeshsview.CustomerLocationByEmailProto.getDescriptor());
+                            Customerlocationview.getDescriptor());
 
     public static void main(String... args) throws Exception {
         wirelessMeshService.start().toCompletableFuture().get();
