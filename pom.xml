@@ -19,6 +19,11 @@
     </properties>
 
     <build>
+        <resources>
+            <resource>
+                <directory>${project.build.directory}/generated-resources</directory>
+            </resource>
+        </resources>
         <extensions>
             <extension>
                 <groupId>kr.motd.maven</groupId>
@@ -37,6 +42,25 @@
                     <target>${jdk.target}</target>
                 </configuration>
             </plugin>
+
+<!--    THIS MATCHES THE CODE GENERATION POM, BUT WILL NOT ALLOW THE INTEGRATION TEST TO WORK. -->
+<!--            <plugin>-->
+<!--                <groupId>org.xolstice.maven.plugins</groupId>-->
+<!--                <artifactId>protobuf-maven-plugin</artifactId>-->
+<!--                <version>0.6.1</version>-->
+<!--                <configuration>-->
+<!--                    <writeDescriptorSet>true</writeDescriptorSet>-->
+<!--                    <checkStaleness>true</checkStaleness>-->
+<!--                    <protocArtifact>com.google.protobuf:protoc:3.9.1:exe:${os.detected.classifier}</protocArtifact>-->
+<!--                </configuration>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <goals>-->
+<!--                            <goal>compile</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--            </plugin>-->
 
             <plugin>
                 <groupId>org.xolstice.maven.plugins</groupId>
