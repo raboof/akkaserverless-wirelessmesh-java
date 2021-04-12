@@ -7,7 +7,7 @@ import "akkaserverless/annotations.proto";
 package wirelessmeshsview;
 
 option java_multiple_files = true;
-option java_package = "wirelessmesh.view";
+option java_outer_classname = "CustomerLocationByEmailProto";
 
 import "domain/wirelessmeshdomain.proto";
 
@@ -17,11 +17,12 @@ message CustomerLocationByEmailRequest {
 
 message CustomerLocationDto {
   string customer_location_id = 1;
+  string email = 2;
 }
 
 // TODO: This service should subscribe to the CustomerLocationAdded event and update the customer location by email view.
-service CustomerLocationByEmail {
-    rpc UpdateCustomerLocation(CustomerLocationDto) returns (CustomerLocationDto) {
+service CustomerLocationByEmailService {
+    rpc UpdateCustomerLocation(wirelessmeshdomain.CustomerLocationAdded) returns (CustomerLocationDto) {
         option (akkaserverless.method).eventing = {
           in: {
             value_changes: "customer-locations"

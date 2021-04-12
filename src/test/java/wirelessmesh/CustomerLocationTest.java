@@ -7,7 +7,7 @@ import org.mockito.*;
 
 import wirelessmesh.domain.CustomerLocationEntity;
 import wirelessmesh.domain.*;
-import wirelessmesh.service.*;
+import wirelessmeshservice.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
