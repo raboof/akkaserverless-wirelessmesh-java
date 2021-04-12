@@ -3,7 +3,7 @@
  import com.akkaserverless.javasdk.action.Action;
  import com.akkaserverless.javasdk.action.Handler;
  import com.google.protobuf.Empty;
- import com.google.protobuf.any.Any;
+ import com.google.protobuf.Any;
  import wirelessmeshdomain.Wirelessmeshdomain.*;
 
  /**
