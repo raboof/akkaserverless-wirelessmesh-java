@@ -16,6 +16,7 @@ package wirelessmeshservice;
 message AddCustomerLocationCommand {
     string customerLocationId = 1 [(akkaserverless.field).entity_key = true];
     string accessToken = 2;
+    string email = 3;
 }
 
 message RemoveCustomerLocationCommand {
@@ -58,9 +59,14 @@ message Device {
 message CustomerLocation {
     string customerLocationId = 1;
     string accessToken = 2;
-    bool added = 3;
-    bool removed = 4;
-    repeated Device devices = 5;
+    string email = 3;
+    bool added = 4;
+    bool removed = 5;
+    repeated Device devices = 6;
+}
+
+message CustomerLocationByEmailRequest {
+    string email = 1;
 }
 
 /**

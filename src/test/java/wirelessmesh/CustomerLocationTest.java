@@ -6,8 +6,8 @@ import org.junit.Test;
 import org.mockito.*;
 
 import wirelessmesh.domain.CustomerLocationEntity;
-import wirelessmeshdomain.Wirelessmeshdomain.*;
 import wirelessmeshservice.Wirelessmeshservice.*;
+import wirelessmeshdomain.Wirelessmeshdomain.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,6 +20,7 @@ public class CustomerLocationTest {
 
     String customerLocationId = "customerId1";
     String accessToken = "accessToken";
+    String email = "me@you.com";
     String room = "person-cave";
 
     public CustomerLocationTest() {}
@@ -165,11 +166,13 @@ public class CustomerLocationTest {
         CustomerLocationAdded added = CustomerLocationAdded.newBuilder()
                 .setCustomerLocationId(customerLocationId)
                 .setAccessToken(accessToken)
+                .setEmail(email)
                 .build();
 
         customerLocation.addCustomerLocation(AddCustomerLocationCommand.newBuilder()
                 .setCustomerLocationId(customerLocationId)
                 .setAccessToken(accessToken)
+                .setEmail(email)
                 .build(), context);
 
         Mockito.verify(context).emit(added);

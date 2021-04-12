@@ -5,7 +5,6 @@ import com.akkaserverless.javasdk.testkit.junit.AkkaServerlessTestkitResource;
 import io.grpc.StatusRuntimeException;
 import org.junit.ClassRule;
 import org.junit.Test;
-import wirelessmeshdomain.Wirelessmeshdomain.*;
 import wirelessmeshservice.WirelessMeshServiceClient;
 import wirelessmeshservice.Wirelessmeshservice.*;
 
@@ -30,6 +29,7 @@ public class IntegrationTest {
 
     String accessToken = "accessToken";
     String room = "person-cave";
+    String email = "me@you.com";
 
     public IntegrationTest() {
         this.client = WirelessMeshServiceClient.create(testkit.getGrpcClientSettings(), testkit.getActorSystem());
@@ -43,6 +43,7 @@ public class IntegrationTest {
                 GetCustomerLocationCommand.newBuilder()
                         .setCustomerLocationId(customerLocationId)
                         .build()).toCompletableFuture().get();
+        System.out.println(location);
         assertEquals(customerLocationId, location.getCustomerLocationId());
         assertTrue(location.getAdded());
     }
@@ -152,6 +153,7 @@ public class IntegrationTest {
         client.addCustomerLocation(AddCustomerLocationCommand.newBuilder()
                 .setCustomerLocationId(customerLocationId)
                 .setAccessToken(accessToken)
+                .setEmail(email)
                 .build()).toCompletableFuture().get();
     }
 

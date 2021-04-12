@@ -1,22 +1,21 @@
- package wirelessmesh.domain;
+package wirelessmesh.domain;
 
- import com.google.protobuf.Empty;
- import com.akkaserverless.javasdk.EntityId;
- import com.akkaserverless.javasdk.eventsourcedentity.*;
+import com.google.protobuf.Empty;
+import com.akkaserverless.javasdk.EntityId;
+import com.akkaserverless.javasdk.eventsourcedentity.*;
 
- import wirelessmesh.DeviceService;
- import wirelessmesh.LifxDeviceService;
- import wirelessmesh.NoopPubsubService;
- import wirelessmesh.PubsubService;
- import wirelessmeshdomain.Wirelessmeshdomain.*;
- import wirelessmeshservice.Wirelessmeshservice.*;
-
- import java.io.IOException;
- import java.util.ArrayList;
- import java.util.List;
- import java.util.Optional;
- import java.util.stream.Collectors;
- import java.util.stream.Stream;
+import wirelessmesh.DeviceService;
+import wirelessmesh.LifxDeviceService;
+import wirelessmesh.NoopPubsubService;
+import wirelessmesh.PubsubService;
+import wirelessmeshservice.Wirelessmeshservice.*;
+import wirelessmeshdomain.Wirelessmeshdomain.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
  /**
   * A customer location entity.
@@ -46,6 +45,8 @@
      private boolean removed = false;
 
      private String accessToken = "";
+
+     private String email = "";
 
      private List<Device> devices = new ArrayList<Device>();
 
@@ -78,6 +79,7 @@
              CustomerLocationAdded event = CustomerLocationAdded.newBuilder()
                      .setCustomerLocationId(addCustomerLocationCommand.getCustomerLocationId())
                      .setAccessToken(addCustomerLocationCommand.getAccessToken())
+                     .setEmail(addCustomerLocationCommand.getEmail())
                      .build();
 
              ctx.emit(event);
@@ -98,6 +100,7 @@
          this.added = true;
          this.removed = false;
          this.accessToken = customerLocationAdded.getAccessToken();
+         this.email = customerLocationAdded.getEmail();
      }
 
      /**
@@ -331,6 +334,7 @@
 
          return CustomerLocation.newBuilder().setCustomerLocationId(customerLocationId)
                  .setAccessToken(accessToken)
+                 .setEmail(email)
                  .setAdded(added)
                  .setRemoved(removed)
                  .addAllDevices(devices).build();
