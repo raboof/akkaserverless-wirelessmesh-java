@@ -4,6 +4,8 @@ import "google/protobuf/empty.proto";
 import "google/api/annotations.proto";
 import "akkaserverless/annotations.proto";
 
+import "wirelessmeshdomain.proto";
+
 /**
 * This is where we define our service and how the outside world will interact with our user function.
 **/
@@ -121,4 +123,12 @@ service WirelessMeshService {
             body: "*",
         };
     }
+
+    rpc ForwardCustomerLocationAdded(CustomerLocationAdded) returns (google.protobuf.Empty) {
+        option (akkaserverless.method).eventing = {
+            in: {
+              event_log:  "CustomerLocationEntity"
+            }
+        };
+    };
 }

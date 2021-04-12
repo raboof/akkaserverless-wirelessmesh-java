@@ -46,6 +46,9 @@
                     <writeDescriptorSet>true</writeDescriptorSet>
                     <checkStaleness>true</checkStaleness>
                     <protocArtifact>com.google.protobuf:protoc:3.9.1:exe:${os.detected.classifier}</protocArtifact>
+<!--                    <protoSourceRoot>domain</protoSourceRoot>-->
+<!--                    <protoSourceRoot>service</protoSourceRoot>-->
+<!--                    <protoSourceRoot>view</protoSourceRoot>-->
                     <protocPlugins>
                         <protocPlugin>
                             <id>akka-grpc</id>
