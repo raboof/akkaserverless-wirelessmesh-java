@@ -25,7 +25,7 @@ import java.util.stream.Stream;
   * Event sourcing was selected in order to have complete traceability into the behavior of devices for the purposes
   * of security, analytics and simulation.
   */
- @EventSourcedEntity(entityType = "customer_location-entity")
+ @EventSourcedEntity(entityType = "customer-location-entity")
  public class CustomerLocationEntity {
 
      /**

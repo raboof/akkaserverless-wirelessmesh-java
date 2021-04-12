@@ -16,12 +16,11 @@ message CustomerLocationDto {
   string email = 2;
 }
 
-// TODO: This service should subscribe to the CustomerLocationAdded event and update the customer location by email view.
 service CustomerLocationByEmailService {
     rpc UpdateCustomerLocation(wirelessmeshdomain.CustomerLocationAdded) returns (CustomerLocationDto) {
         option (akkaserverless.method).eventing = {
           in: {
-            value_changes: "customer_location-entity"
+            event_log: "customer-location-entity"
           }
         };
         option (akkaserverless.method).view.update = {
@@ -35,7 +34,7 @@ service CustomerLocationByEmailService {
           query: "select * from customer_locations where email = :email"
         };
         option (google.api.http) = {
-          get: "/customer_locations"
+          get: "wirelessmesh/customer-locations"
         };
     }
 }
