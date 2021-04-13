@@ -25,23 +25,23 @@ message RemoveCustomerLocationCommand {
 
 message ActivateDeviceCommand {
     string customer_location_id = 1 [(akkaserverless.field).entity_key = true];
-    string deviceId = 2;
+    string device_id = 2;
 }
 
 message AssignRoomCommand {
     string customer_location_id = 1 [(akkaserverless.field).entity_key = true];
-    string deviceId = 2;
+    string device_id = 2;
     string room = 3;
 }
 
 message RemoveDeviceCommand {
     string customer_location_id = 1 [(akkaserverless.field).entity_key = true];
-    string deviceId = 2;
+    string device_id = 2;
 }
 
 message ToggleNightlightCommand {
     string customer_location_id = 1 [(akkaserverless.field).entity_key = true];
-    string deviceId = 2;
+    string device_id = 2;
 }
 
 message GetCustomerLocationCommand {
@@ -49,7 +49,7 @@ message GetCustomerLocationCommand {
 }
 
 message Device {
-    string deviceId = 1;
+    string device_id = 1;
     bool activated = 2;
     string customer_location_id = 3;
     string room = 4;
