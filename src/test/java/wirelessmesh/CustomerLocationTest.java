@@ -136,6 +136,7 @@ public class CustomerLocationTest {
                 .setDeviceId("deviceId2")
                 .setCustomerLocationId(customerLocationId)
                 .setNightlightOn(true)
+                .setAccessToken(accessToken)
                 .build();
 
         entity.toggleNightlight(ToggleNightlightCommand.newBuilder()

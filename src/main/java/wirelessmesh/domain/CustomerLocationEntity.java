@@ -282,7 +282,9 @@ import java.util.stream.Stream;
                  NightlightToggled event = NightlightToggled.newBuilder()
                          .setDeviceId(toggleNightlightCommand.getDeviceId())
                          .setCustomerLocationId(toggleNightlightCommand.getCustomerLocationId())
-                         .setNightlightOn(!deviceMaybe.get().getNightlightOn()).build();
+                         .setNightlightOn(!deviceMaybe.get().getNightlightOn())
+                         .setAccessToken(accessToken)
+                         .build();
 
                  ctx.emit(event);
              }
@@ -320,7 +322,7 @@ import java.util.stream.Stream;
          }
 
          return CustomerLocation.newBuilder().setCustomerLocationId(customerLocationId)
-                 .setAccessToken(accessToken)
+                 .setAccessToken("<hidden>")
                  .setEmail(email)
                  .setAdded(added)
                  .setRemoved(removed)

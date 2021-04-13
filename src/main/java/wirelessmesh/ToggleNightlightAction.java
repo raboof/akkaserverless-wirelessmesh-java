@@ -2,6 +2,7 @@ package wirelessmesh;
 
 import com.akkaserverless.javasdk.action.Action;
 import com.akkaserverless.javasdk.action.Handler;
+import com.google.protobuf.Any;
 import com.google.protobuf.Empty;
 import wirelessmeshdomain.Wirelessmeshdomain.NightlightToggled;
 
@@ -17,10 +18,9 @@ import java.net.URL;
 public class ToggleNightlightAction {
     @Handler
     Empty sendNightlightToggled(NightlightToggled event) throws IOException {
-        String accessToken = "mock-access-token";
         URL url = new URL("https://api.lifx.com/v1/lights/" + event.getDeviceId() + "/toggle");
         HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-        conn.setRequestProperty("Authorization","Bearer " + accessToken);
+        conn.setRequestProperty("Authorization","Bearer " + event.getAccessToken());
         conn.setRequestProperty("Content-Type","application/json");
         conn.setRequestMethod("POST");
 
@@ -31,6 +31,11 @@ public class ToggleNightlightAction {
 
         conn.getResponseCode();
 
+        return Empty.getDefaultInstance();
+    }
+
+    @Handler
+    public Empty catchOthers(Any Event) {
         return Empty.getDefaultInstance();
     }
 }

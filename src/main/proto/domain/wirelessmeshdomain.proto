@@ -36,4 +36,5 @@ message NightlightToggled {
     string deviceId = 1;
     string customerLocationId = 2;
     bool nightlightOn = 3;
+    string accessToken = 4;
 }
