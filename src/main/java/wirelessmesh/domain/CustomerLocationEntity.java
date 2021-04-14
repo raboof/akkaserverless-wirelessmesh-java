@@ -322,7 +322,7 @@ import java.util.stream.Stream;
          }
 
          return CustomerLocation.newBuilder().setCustomerLocationId(customerLocationId)
-                 .setAccessToken("<hidden>")
+                 .setAccessToken("[hidden]")
                  .setEmail(email)
                  .setAdded(added)
                  .setRemoved(removed)
