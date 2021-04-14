@@ -1,13 +1,15 @@
 syntax = "proto3";
 
+package wirelessmeshdomain;
+
 /**
 * This is where we define our domain, in this case the events that will be stored.
 **/
-package wirelessmeshdomain;
 
 message CustomerLocationAdded {
     string customerLocationId = 1;
     string accessToken = 2;
+    string email = 3;
 }
 
 message CustomerLocationRemoved {
@@ -34,4 +36,5 @@ message NightlightToggled {
     string deviceId = 1;
     string customerLocationId = 2;
     bool nightlightOn = 3;
+    string accessToken = 4;
 }

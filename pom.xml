@@ -10,7 +10,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <akkasls.dockerImage>${namespace}/${project.artifactId}</akkasls.dockerImage>
+        <akkasls.dockerImage>${project.artifactId}</akkasls.dockerImage>
         <akkasls.dockerTag>${project.version}</akkasls.dockerTag>
         <jdk.target>11</jdk.target>
         <mainClass>wirelessmesh.WirelessMeshMain</mainClass>
@@ -19,6 +19,11 @@
     </properties>
 
     <build>
+        <resources>
+            <resource>
+                <directory>${project.build.directory}/generated-resources</directory>
+            </resource>
+        </resources>
         <extensions>
             <extension>
                 <groupId>kr.motd.maven</groupId>
@@ -155,25 +160,6 @@
                     <mainClass>${mainClass}</mainClass>
                 </configuration>
             </plugin>
-
-            <plugin>
-                <groupId>com.lightbend</groupId>
-                <artifactId>akkasls-maven-plugin</artifactId>
-                <version>0.15.0</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                            <goal>deploy</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <dockerImage>${akkasls.dockerImage}:${akkasls.dockerTag}</dockerImage>
-                    <mainClass>${mainClass}</mainClass>
-                </configuration>
-            </plugin>
-
             <plugin>
                 <artifactId>maven-deploy-plugin</artifactId>
                 <version>3.0.0-M1</version>
@@ -184,45 +170,9 @@
         </plugins>
     </build>
 
-    <repositories>
-        <repository>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <id>bintray-lightbend-akkaserverless</id>
-            <name>bintray</name>
-            <url>https://lightbend.bintray.com/akkaserverless</url>
-        </repository>
-        <repository>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <id>bintray-lightbend-akkaserverless-snapshots</id>
-            <name>bintray-snapshots</name>
-            <url>https://lightbend.bintray.com/akkaserverless-snapshots</url>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <id>bintray-lightbend-akkaserverless</id>
-            <name>bintray</name>
-            <url>https://lightbend.bintray.com/akkaserverless</url>
-        </pluginRepository>
-    </pluginRepositories>
-
     <dependencyManagement>
+
         <dependencies>
-<!--            <dependency>-->
-<!--                <groupId>com.google.cloud</groupId>-->
-<!--                <artifactId>libraries-bom</artifactId>-->
-<!--                <version>16.2.1</version>-->
-<!--                <type>pom</type>-->
-<!--                <scope>import</scope>-->
-<!--            </dependency>-->
             <dependency>
               <groupId>com.typesafe.akka</groupId>
               <artifactId>akka-bom_${scala.binary.version}</artifactId>
@@ -231,6 +181,7 @@
               <scope>import</scope>
             </dependency>
         </dependencies>
+
     </dependencyManagement>
 
     <dependencies>
@@ -239,6 +190,16 @@
             <groupId>com.akkaserverless</groupId>
             <artifactId>akkaserverless-java-sdk</artifactId>
 	    <version>0.7.0-beta.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.30</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-simple</artifactId>
+            <version>1.7.30</version>
         </dependency>
         <dependency>
             <groupId>com.akkaserverless</groupId>
@@ -252,19 +213,6 @@
             <version>${akka.grpc.version}</version>
             <scope>test</scope>
         </dependency>
-
-<!--        <dependency>-->
-<!--            <groupId>com.google.cloud</groupId>-->
-<!--            <artifactId>google-cloud-pubsub</artifactId>-->
-<!--        </dependency>-->
-
-<!--        <dependency>-->
-<!--            <groupId>org.projectlombok</groupId>-->
-<!--            <artifactId>lombok</artifactId>-->
-<!--            <version>1.18.18</version>-->
-<!--            <scope>provided</scope>-->
-<!--        </dependency>-->
-
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>

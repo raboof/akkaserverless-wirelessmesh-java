@@ -1,22 +1,18 @@
- package wirelessmesh.domain;
+package wirelessmesh.domain;
 
- import com.google.protobuf.Empty;
- import com.akkaserverless.javasdk.EntityId;
- import com.akkaserverless.javasdk.eventsourcedentity.*;
+import com.google.protobuf.Empty;
+import com.akkaserverless.javasdk.EntityId;
+import com.akkaserverless.javasdk.eventsourcedentity.*;
 
- import wirelessmesh.DeviceService;
- import wirelessmesh.LifxDeviceService;
- import wirelessmesh.NoopPubsubService;
- import wirelessmesh.PubsubService;
- import wirelessmeshdomain.Wirelessmeshdomain.*;
- import wirelessmeshservice.Wirelessmeshservice.*;
+import wirelessmeshdomain.Wirelessmeshdomain.*;
+import wirelessmesh.Wirelessmesh.*;
 
- import java.io.IOException;
- import java.util.ArrayList;
- import java.util.List;
- import java.util.Optional;
- import java.util.stream.Collectors;
- import java.util.stream.Stream;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
  /**
   * A customer location entity.
@@ -29,11 +25,8 @@
   * Event sourcing was selected in order to have complete traceability into the behavior of devices for the purposes
   * of security, analytics and simulation.
   */
- @EventSourcedEntity(entityType = "CustomerLocationEntity")
+ @EventSourcedEntity(entityType = "customer-location-entity")
  public class CustomerLocationEntity {
-
-     private PubsubService pubsubService = new NoopPubsubService();
-     private DeviceService deviceService = new LifxDeviceService();
 
      /**
       * This section contains the private state variables necessary for this entity.
@@ -46,6 +39,8 @@
      private boolean removed = false;
 
      private String accessToken = "";
+
+     private String email = "";
 
      private List<Device> devices = new ArrayList<Device>();
 
@@ -78,10 +73,10 @@
              CustomerLocationAdded event = CustomerLocationAdded.newBuilder()
                      .setCustomerLocationId(addCustomerLocationCommand.getCustomerLocationId())
                      .setAccessToken(addCustomerLocationCommand.getAccessToken())
+                     .setEmail(addCustomerLocationCommand.getEmail())
                      .build();
 
              ctx.emit(event);
-             pubsubService.publish(event.toByteString());
          }
 
          return Empty.getDefaultInstance();
@@ -98,6 +93,7 @@
          this.added = true;
          this.removed = false;
          this.accessToken = customerLocationAdded.getAccessToken();
+         this.email = customerLocationAdded.getEmail();
      }
 
      /**
@@ -120,7 +116,6 @@
                      .build();
 
              ctx.emit(event);
-             pubsubService.publish(event.toByteString());
          }
 
          return Empty.getDefaultInstance();
@@ -163,7 +158,6 @@
                      .build();
 
              ctx.emit(event);
-             pubsubService.publish(event.toByteString());
          }
 
          return Empty.getDefaultInstance();
@@ -205,7 +199,6 @@
                      .setCustomerLocationId(removeDeviceCommand.getCustomerLocationId()).build();
 
              ctx.emit(event);
-             pubsubService.publish(event.toByteString());
          }
 
          return Empty.getDefaultInstance();
@@ -247,7 +240,6 @@
                      .setRoom(assignRoomCommand.getRoom()).build();
 
              ctx.emit(event);
-             pubsubService.publish(event.toByteString());
          }
 
          return Empty.getDefaultInstance();
@@ -290,11 +282,11 @@
                  NightlightToggled event = NightlightToggled.newBuilder()
                          .setDeviceId(toggleNightlightCommand.getDeviceId())
                          .setCustomerLocationId(toggleNightlightCommand.getCustomerLocationId())
-                         .setNightlightOn(!deviceMaybe.get().getNightlightOn()).build();
+                         .setNightlightOn(!deviceMaybe.get().getNightlightOn())
+                         .setAccessToken(accessToken)
+                         .build();
 
                  ctx.emit(event);
-                 deviceService.toggleNightlight(accessToken, toggleNightlightCommand.getDeviceId());
-                 pubsubService.publish(event.toByteString());
              }
          }
 
@@ -319,7 +311,7 @@
 
      /**
       * This is the command handler geting the current state of the devices as defined in protobuf.
-      * @param GetCustomerLocationCommand the command message from protobuf
+      * @param getCustomerLocationCommand the command message from protobuf
       * @param ctx the application context
       * @return Empty (unused)
       */
@@ -330,7 +322,8 @@
          }
 
          return CustomerLocation.newBuilder().setCustomerLocationId(customerLocationId)
-                 .setAccessToken(accessToken)
+                 .setAccessToken("[hidden]")
+                 .setEmail(email)
                  .setAdded(added)
                  .setRemoved(removed)
                  .addAllDevices(devices).build();
