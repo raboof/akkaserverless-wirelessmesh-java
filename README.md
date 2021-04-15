@@ -66,8 +66,8 @@ The result of the command should be:
 
 To deploy the container as a service in Akka Serverless, you'll need to:
 
-1. Push the container to a container registry: `docker push -t <registry url>/<registry namespace>/akkaserverless-wirelessmesh-java:latest`
-1. Deploy the service in Akka Serverless: `akkasls svc deploy wirelessmesh <registry url>/<registry username>/akkaserverless-wirelessmesh-java:latest`
+1. Push the container to a container registry: `docker push <registry url>/<namespace>/akkaserverless-wirelessmesh-java:latest`
+1. Deploy the service in Akka Serverless: `akkasls svc deploy wirelessmesh <registry url>/<namespace>/akkaserverless-wirelessmesh-java:latest`
 
 _The above command will deploy your container to your default project with the name `wirelessmesh`. If you want to have a different name, you can change that._
 
