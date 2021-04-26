@@ -13,7 +13,7 @@ service PublishingService {
     rpc PublishCustomerLocationAdded(wirelessmeshdomain.CustomerLocationAdded) returns (wirelessmeshdomain.CustomerLocationAdded) {
         option (akkaserverless.method).eventing = {
             in: {
-                event_log: "customer-location-entity";
+                event_sourced_entity: "customer-location-entity";
             }
             out: {
                 topic: "wirelessmesh";
@@ -25,7 +25,7 @@ service PublishingService {
     rpc CatchOthers(google.protobuf.Any) returns (google.protobuf.Empty) {
         option (akkaserverless.method).eventing = {
             in: {
-                event_log:  "customer-location-entity"
+                event_sourced_entity:  "customer-location-entity"
             }
         };
     };

@@ -13,7 +13,7 @@ service DeviceControlService {
     rpc SendNightlightToggled(wirelessmeshdomain.NightlightToggled) returns (google.protobuf.Empty) {
         option (akkaserverless.method).eventing = {
             in: {
-                event_log: "customer-location-entity";
+                event_sourced_entity: "customer-location-entity";
             }
         };
     }
@@ -22,7 +22,7 @@ service DeviceControlService {
     rpc CatchOthers(google.protobuf.Any) returns (google.protobuf.Empty) {
         option (akkaserverless.method).eventing = {
             in: {
-                event_log:  "customer-location-entity"
+                event_sourced_entity:  "customer-location-entity"
             }
         };
     };
