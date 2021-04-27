@@ -15,7 +15,7 @@
         <jdk.target>11</jdk.target>
         <mainClass>wirelessmesh.WirelessMeshMain</mainClass>
         <akkaserverless.sdk.version>0.7.0-beta.3</akkaserverless.sdk.version>
-        <scala.binary.version>2.13</scala.binary.version>
+        <scala.binary.version>2.12</scala.binary.version>
         <akka.grpc.version>1.1.1</akka.grpc.version>
     </properties>
 
