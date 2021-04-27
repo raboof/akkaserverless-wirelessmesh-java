@@ -14,7 +14,8 @@
         <akkasls.dockerTag>${project.version}</akkasls.dockerTag>
         <jdk.target>11</jdk.target>
         <mainClass>wirelessmesh.WirelessMeshMain</mainClass>
-        <scala.binary.version>2.12</scala.binary.version>
+        <akkaserverless.sdk.version>0.7.0-beta.3</akkaserverless.sdk.version>
+        <scala.binary.version>2.13</scala.binary.version>
         <akka.grpc.version>1.1.1</akka.grpc.version>
     </properties>
 
@@ -57,7 +58,7 @@
                         <protocPlugin>
                             <id>akka-grpc</id>
                             <groupId>com.lightbend.akka.grpc</groupId>
-                            <artifactId>akka-grpc-scalapb-protoc-plugin_2.12</artifactId>
+                            <artifactId>akka-grpc-scalapb-protoc-plugin_${scala.binary.version}</artifactId>
                             <version>${akka.grpc.version}</version>
                             <mainClass>akka.grpc.gen.Main</mainClass>
                         </protocPlugin>
@@ -178,7 +179,14 @@
             <dependency>
               <groupId>com.typesafe.akka</groupId>
               <artifactId>akka-bom_${scala.binary.version}</artifactId>
-              <version>2.6.13</version>
+              <version>2.6.14</version>
+              <type>pom</type>
+              <scope>import</scope>
+            </dependency>
+            <dependency>
+              <groupId>com.typesafe.akka</groupId>
+              <artifactId>akka-http-bom_${scala.binary.version}</artifactId>
+              <version>10.2.4</version>
               <type>pom</type>
               <scope>import</scope>
             </dependency>
@@ -191,7 +199,7 @@
         <dependency>
             <groupId>com.akkaserverless</groupId>
             <artifactId>akkaserverless-java-sdk</artifactId>
-            <version>0.7.0-beta.1</version>
+            <version>${akkaserverless.sdk.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -206,12 +214,12 @@
         <dependency>
             <groupId>com.akkaserverless</groupId>
             <artifactId>akkaserverless-java-sdk-testkit</artifactId>
-            <version>0.7.0-beta.1</version>
+            <version>${akkaserverless.sdk.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>com.lightbend.akka.grpc</groupId>
-            <artifactId>akka-grpc-runtime_2.12</artifactId>
+            <artifactId>akka-grpc-runtime_${scala.binary.version}</artifactId>
             <version>${akka.grpc.version}</version>
             <scope>test</scope>
         </dependency>

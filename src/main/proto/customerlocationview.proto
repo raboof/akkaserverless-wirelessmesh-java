@@ -20,7 +20,7 @@ service CustomerLocationByEmailService {
     rpc UpdateCustomerLocation(wirelessmeshdomain.CustomerLocationAdded) returns (CustomerLocationDto) {
         option (akkaserverless.method).eventing = {
           in: {
-            event_log: "customer-location-entity"
+            event_sourced_entity: "customer-location-entity"
           }
         };
         option (akkaserverless.method).view.update = {
