@@ -12,6 +12,10 @@ To help you get started with Akka Serverless, we've built some example apps that
 
 In this example app you can interact with the devices, assign them to different rooms in the house, and turn them on or off. To make this example even more interactive, you can add an actual nightlight and switch the lights on or off.
 
+We used the following akkaserverless capabilities: event sourced entity (wirelessmeshdomain.CustomerLocationEntity), 
+using an Action to publish to google pubsub (wirelessmesh.PublishingAction and publishing.proto) and using a View (wirelessmesh.CustomerLocationView and customerlocationview.proto) and finally
+an Action to connect to the Lifx bulb (wirelessmesh.ToggleNightlightAction and devicecontrol.proto).
+
 ## Prerequisites
 
 To build and deploy this example application, you'll need to have:
