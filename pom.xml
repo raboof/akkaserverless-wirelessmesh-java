@@ -23,6 +23,9 @@
             <resource>
                 <directory>${project.build.directory}/generated-resources</directory>
             </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
         </resources>
         <extensions>
             <extension>
@@ -179,16 +182,6 @@
             <groupId>com.akkaserverless</groupId>
             <artifactId>akkaserverless-java-sdk</artifactId>
             <version>${akkaserverless.sdk.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.7.30</version>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.7.30</version>
         </dependency>
         <dependency>
             <groupId>com.akkaserverless</groupId>
