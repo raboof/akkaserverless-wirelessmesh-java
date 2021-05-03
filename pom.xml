@@ -10,28 +10,36 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <akkasls.dockerImage>${project.artifactId}</akkasls.dockerImage>
-        <akkasls.dockerTag>${project.version}</akkasls.dockerTag>
+
+        <!-- TODO Update to your own Docker repository or Docker Hub scope -->
+        <akkaserverless.dockerImage>my-docker-repo/${project.artifactId}</akkaserverless.dockerImage>
+        <akkaserverless.dockerTag>${project.version}</akkaserverless.dockerTag>
         <jdk.target>11</jdk.target>
         <mainClass>wirelessmesh.WirelessMeshMain</mainClass>
-        <akkaserverless.sdk.version>0.7.0-beta.3</akkaserverless.sdk.version>
-        <akka.grpc.version>1.1.1</akka.grpc.version>
+        <akkaserverless-sdk.version>0.7.0-beta.3</akkaserverless-sdk.version>
+        <akka-grpc.version>1.1.1</akka-grpc.version>
     </properties>
 
     <build>
         <resources>
             <resource>
+                <!-- Add the generated protobuf descriptor to the classpath, so that source mapping works -->
                 <directory>${project.build.directory}/generated-resources</directory>
             </resource>
             <resource>
                 <directory>src/main/resources</directory>
             </resource>
         </resources>
+        <testResources>
+            <testResource>
+                <directory>src/test/resources</directory>
+            </testResource>
+        </testResources>
         <extensions>
             <extension>
                 <groupId>kr.motd.maven</groupId>
                 <artifactId>os-maven-plugin</artifactId>
-                <version>1.6.0</version>
+                <version>1.7.0</version>
             </extension>
         </extensions>
         <plugins>
@@ -40,7 +48,6 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <!-- java version -->
                     <source>${jdk.target}</source>
                     <target>${jdk.target}</target>
                 </configuration>
@@ -50,27 +57,44 @@
                 <groupId>org.xolstice.maven.plugins</groupId>
                 <artifactId>protobuf-maven-plugin</artifactId>
                 <version>0.6.1</version>
-                <configuration>
-                    <writeDescriptorSet>true</writeDescriptorSet>
-                    <includeSourceInfoInDescriptorSet>true</includeSourceInfoInDescriptorSet>
-                    <descriptorSetFileName>user-function.desc</descriptorSetFileName>
-                    <checkStaleness>true</checkStaleness>
-                    <protocArtifact>com.google.protobuf:protoc:3.9.1:exe:${os.detected.classifier}</protocArtifact>
-                    <protocPlugins>
-                        <protocPlugin>
-                            <id>akka-grpc</id>
-                            <groupId>com.lightbend.akka.grpc</groupId>
-                            <artifactId>akka-grpc-scalapb-protoc-plugin_2.12</artifactId>
-                            <version>${akka.grpc.version}</version>
-                            <mainClass>akka.grpc.gen.Main</mainClass>
-                        </protocPlugin>
-                    </protocPlugins>
-                </configuration>
                 <executions>
                     <execution>
+                        <!-- generate Java code for protobuf types -->
+                        <id>protobuf</id>
                         <goals>
                             <goal>compile</goal>
                         </goals>
+                        <configuration>
+                            <writeDescriptorSet>true</writeDescriptorSet>
+                            <includeSourceInfoInDescriptorSet>true</includeSourceInfoInDescriptorSet>
+                            <descriptorSetFileName>user-function.desc</descriptorSetFileName>
+                            <checkStaleness>true</checkStaleness>
+                            <protocArtifact>com.google.protobuf:protoc:3.9.1:exe:${os.detected.classifier}</protocArtifact>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <!-- generate a gRPC client (with Akka gRPC) for integration testing -->
+                        <id>grpc-client</id>
+                        <goals>
+                            <goal>test-compile</goal>
+                        </goals>
+                        <configuration>
+                            <writeDescriptorSet>true</writeDescriptorSet>
+                            <includeSourceInfoInDescriptorSet>true</includeSourceInfoInDescriptorSet>
+                            <protoTestSourceRoot>src/main/proto</protoTestSourceRoot>
+                            <descriptorSetFileName>user-function-test.desc</descriptorSetFileName>
+                            <checkStaleness>true</checkStaleness>
+                            <protocArtifact>com.google.protobuf:protoc:3.9.1:exe:${os.detected.classifier}</protocArtifact>
+                            <protocPlugins>
+                                <protocPlugin>
+                                    <id>akka-grpc</id>
+                                    <groupId>com.lightbend.akka.grpc</groupId>
+                                    <artifactId>akka-grpc-scalapb-protoc-plugin_2.12</artifactId>
+                                    <version>${akka-grpc.version}</version>
+                                    <mainClass>akka.grpc.gen.Main</mainClass>
+                                </protocPlugin>
+                            </protocPlugins>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
@@ -91,7 +115,6 @@
                                     <resource>reference.conf</resource>
                                 </transformer>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <!-- main entry class -->
                                     <mainClass>${mainClass}</mainClass>
                                 </transformer>
                             </transformers>
@@ -107,13 +130,13 @@
                 <configuration>
                     <images>
                         <image>
-                            <name>${akkasls.dockerImage}:%l</name>
+                            <name>${akkaserverless.dockerImage}:%l</name>
                             <build>
                                 <!-- Base Docker image which contains jre-->
                                 <from>docker.io/library/adoptopenjdk:${jdk.target}-jre-hotspot</from>
                                 <tags>
                                     <!-- tag for generated image -->
-                                    <tag>${akkasls.dockerTag}</tag>
+                                    <tag>${akkaserverless.dockerTag}</tag>
                                 </tags>
                                 <ports>
                                     <!-- expose port in Docker container -->
@@ -165,7 +188,33 @@
                     <mainClass>${mainClass}</mainClass>
                 </configuration>
             </plugin>
+
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
+
+            <plugin>
+                <groupId>com.lightbend</groupId>
+                <artifactId>akkasls-maven-plugin</artifactId>
+                <version>0.20.2</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generate</goal>
+                            <goal>deploy</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <dockerImage>${akkaserverless.dockerImage}:${akkaserverless.dockerTag}</dockerImage>
+                    <mainClass>${mainClass}</mainClass>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-deploy-plugin</artifactId>
                 <version>3.0.0-M1</version>
                 <configuration>
@@ -175,19 +224,33 @@
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>lightbend-akkaserverless</id>
+            <name>cloudsmith</name>
+            <url>https://dl.cloudsmith.io/public/lightbend/akkaserverless/maven/</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <id>lightbend-akkaserverless</id>
+            <name>cloudsmith</name>
+            <url>https://dl.cloudsmith.io/public/lightbend/akkaserverless/maven/</url>
+        </pluginRepository>
+    </pluginRepositories>
 
     <dependencies>
-
         <dependency>
             <groupId>com.akkaserverless</groupId>
             <artifactId>akkaserverless-java-sdk</artifactId>
-            <version>${akkaserverless.sdk.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.akkaserverless</groupId>
-            <artifactId>akkaserverless-java-sdk-testkit</artifactId>
-            <version>${akkaserverless.sdk.version}</version>
-            <scope>test</scope>
+            <version>${akkaserverless-sdk.version}</version>
         </dependency>
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -195,11 +258,16 @@
             <version>1.2.3</version>
         </dependency>
         <dependency>
+            <groupId>com.akkaserverless</groupId>
+            <artifactId>akkaserverless-java-sdk-testkit</artifactId>
+            <version>${akkaserverless-sdk.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>3.6.0</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
 </project>

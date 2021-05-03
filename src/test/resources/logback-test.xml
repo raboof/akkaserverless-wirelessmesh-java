@@ -7,6 +7,7 @@
     </appender>
 
     <logger name="com.akkaserverless" level="INFO"/>
+    <logger name="com.github.dockerjava" level="INFO"/>
     <logger name="akka" level="INFO"/>
     <logger name="akka.http" level="INFO"/>
     <logger name="io.grpc" level="INFO"/>
