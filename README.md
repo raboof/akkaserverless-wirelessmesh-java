@@ -12,7 +12,7 @@ To help you get started with Akka Serverless, we've built some example apps that
 
 In this example app you can interact with the devices, assign them to different rooms in the house, and turn them on or off. To make this example even more interactive, you can add an actual nightlight and switch the lights on or off.
 
-We used the following akkaserverless capabilities: event sourced entity (wirelessmeshdomain.CustomerLocationEntity), 
+We used the following akkaserverless capabilities: event sourced entity (wirelessmeshdomain.CustomerLocationEntity),
 using an Action to publish to google pubsub (wirelessmesh.PublishingAction and publishing.proto) and using a View (wirelessmesh.CustomerLocationView and customerlocationview.proto) and finally
 an Action to connect to the Lifx bulb (wirelessmesh.ToggleNightlightAction and devicecontrol.proto).
 
@@ -37,7 +37,7 @@ To connect Akka Serverless to your Google Cloud Pub/Sub you must authenticate us
 Now use the [akkasls](https://developer.lightbend.com/docs/akka-serverless/getting-started/set-up-development-env.html) command-line tool to give Akka Serverless access to your broker:
 
 ```
-akkasls project set broker --broker-service gcp-pubsub --gcp-project-id testing-pubsub-310212 --gcp-key-file testing-pubsub-310212-fec7d0612927.json
+akkasls project set broker --broker-service gcp-pubsub --gcp-key-file testing-pubsub-310212-fec7d0612927.json
 ```
 
 ### LIFX integration for toggling nightlight
@@ -77,22 +77,69 @@ _The above command will deploy your container to your default project with the n
 
 ### Testing your service
 
-To test using Postman.
+To test using Postman(or curl).
 * First install Postman, [found here](https://www.postman.com)
 * Assuming you have deployed to akkaserverless and exposed your service to 'winter-mountain-2372.us-east1.apps.akkaserverless.com'...
-* Create a Postman POST request to 'https://winter-mountain-2372.us-east1.apps.akkaserverless.com/wirelessmesh/add-customer-location' with the json body '{"customer_location_id": "my-first-location", "access_token": "my lifx access token if applicable"}'
+* Create a Postman POST request to 'https://winter-mountain-2372.us-east1.apps.akkaserverless.com/wirelessmesh/add-customer-location' with the json body '{"customer_location_id": "my-first-location", "access_token": "my lifx access token if applicable in alphanumeric"}'
+
+Or using Curl (NOTE: Assume access_token is "abcd1234", you can set it to any alphanumeric):
+```
+export AS_HOST=winter-mountain-2372.us-east1.apps.akkaserverless.com
+
+curl -X POST -H "Content-Type: application/json"  --data '{"customer_location_id": "my-first-location", "access_token": "abcd1234"}' https://${AS_HOST}/wirelessmesh/add-customer-location
+```
 * You should see a response of '200(OK) {}', this will be the response of any POST
-* You can now create a GET request to 'https://winter-mountain-2372.us-east1.apps.akkaserverless.com/wirelessmesh/get-customer-location?customerLocationId=my-first-location'
+* You can now create a GET request to 'https://winter-mountain-2372.us-east1.apps.akkaserverless.com/wirelessmesh/get-customer-location?customer_location_id=my-first-location'
+
+Or using Curl:
+```
+curl https://${AS_HOST}/wirelessmesh/get-customer-location?customer_location_id=my-first-location
+```
 * You should see a json response containing your customer location and no devices.
 * Create a POST request to 'https://winter-mountain-2372.us-east1.apps.akkaserverless.com/wirelessmesh/activate-device' with the body '{"customer_location_id": "my-first-location", "device_id": "my-first-device"}'
-* Create a POST requset to 'https://winter-mountain-2372.us-east1.apps.akkaserverless.com/wirelessmesh/assign-room' with the body '{"customer_location_id": "my-first-location", "device_id": "my-first-device", "room": "office"}'
+
+Or using Curl:
+```
+curl -X POST -H "Content-Type: application/json"  --data '{"customer_location_id": "my-first-location", "device_id": "my-first-device"}' https://${AS_HOST}/wirelessmesh/activate-device
+```
+* Create a POST request to 'https://winter-mountain-2372.us-east1.apps.akkaserverless.com/wirelessmesh/assign-room' with the body '{"customer_location_id": "my-first-location", "device_id": "my-first-device", "room": "office"}'
+
+Or using Curl:
+```
+curl -X POST -H "Content-Type: application/json"  --data '{"customer_location_id": "my-first-location", "device_id": "my-first-device", "room": "office"}' https://${AS_HOST}/wirelessmesh/assign-room
+```
 * Create a POST requset to 'https://winter-mountain-2372.us-east1.apps.akkaserverless.com/wirelessmesh/toggle-nightlight' with the body '{"customer_location_id": "my-first-location", "device_id": "my-first-device"}'
+
+Or using Curl:
+```
+curl -X POST -H "Content-Type: application/json"  --data '{"customer_location_id": "my-first-location", "device_id": "my-first-device"}' https://${AS_HOST}/wirelessmesh/toggle-nightlight
+```
 * Rerun your get-customer-location request
+
+Or using Curl:
+```
+curl https://${AS_HOST}/wirelessmesh/get-customer-location?customer_location_id=my-first-location
+```
 * You should see a json response with your customer location and a collection of your single device with the room assigned and the nightlight on
 * Create a POST request to 'https://winter-mountain-2372.us-east1.apps.akkaserverless.com/wirelessmesh/remove-device' with the body '{"customer_location_id": "my-first-location", "device_id": "my-first-device"}'
+
+Or using Curl:
+```
+curl -X POST -H "Content-Type: application/json"  --data '{"customer_location_id": "my-first-location", "device_id": "my-first-device"}' https://${AS_HOST}/wirelessmesh/remove-device
+```
 * You should see a json response no longer containing any devices
 * Create a POST request to 'https://winter-mountain-2372.us-east1.apps.akkaserverless.com/wirelessmesh/remove-customer-location' with the body '{"customer_location_id": "my-first-location"}'
+
+Or using Curl:
+```
+curl -X POST -H "Content-Type: application/json"  --data '{"customer_location_id": "my-first-location"}' https://${AS_HOST}/wirelessmesh/remove-customer-location
+```
 * Rerun your get-customer-location request and you will see a server error since it no longer exists.
+
+Or using Curl:
+```
+curl https://${AS_HOST}/wirelessmesh/get-customer-location?customer_location_id=my-first-location
+```
 
 ## Contributing
 
