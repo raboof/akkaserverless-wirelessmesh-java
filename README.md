@@ -104,7 +104,7 @@ curl -X POST -H "Content-Type: application/json"  --data '{"customer_location_id
 ```
 * Create a POST request to 'https://winter-mountain-2372.us-east1.apps.akkaserverless.com/wirelessmesh/assign-room' with the body '{"customer_location_id": "my-first-location", "device_id": "my-first-device", "room": "office"}'
 
-Or use curl command
+Or using Curl:
 ```
 curl -X POST -H "Content-Type: application/json"  --data '{"customer_location_id": "my-first-location", "device_id": "my-first-device", "room": "office"}' https://${AS_HOST}/wirelessmesh/assign-room
 ```
