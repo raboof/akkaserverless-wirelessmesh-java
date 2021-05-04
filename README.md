@@ -136,7 +136,7 @@ curl -X POST -H "Content-Type: application/json"  --data '{"customer_location_id
 ```
 * Rerun your get-customer-location request and you will see a server error since it no longer exists.
 
-For example,
+Or using Curl:
 ```
 curl https://${AS_HOST}/wirelessmesh/get-customer-location?customer_location_id=my-first-location
 ```
