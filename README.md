@@ -130,7 +130,7 @@ curl -X POST -H "Content-Type: application/json"  --data '{"customer_location_id
 * You should see a json response no longer containing any devices
 * Create a POST request to 'https://winter-mountain-2372.us-east1.apps.akkaserverless.com/wirelessmesh/remove-customer-location' with the body '{"customer_location_id": "my-first-location"}'
 
-For example,
+Or using Curl:
 ```
 curl -X POST -H "Content-Type: application/json"  --data '{"customer_location_id": "my-first-location"}' https://${AS_HOST}/wirelessmesh/remove-customer-location
 ```
