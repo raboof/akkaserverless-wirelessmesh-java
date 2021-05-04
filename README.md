@@ -98,7 +98,7 @@ curl https://${AS_HOST}/wirelessmesh/get-customer-location?customer_location_id=
 * You should see a json response containing your customer location and no devices.
 * Create a POST request to 'https://winter-mountain-2372.us-east1.apps.akkaserverless.com/wirelessmesh/activate-device' with the body '{"customer_location_id": "my-first-location", "device_id": "my-first-device"}'
 
-Or use curl command
+Or using Curl:
 ```
 curl -X POST -H "Content-Type: application/json"  --data '{"customer_location_id": "my-first-location", "device_id": "my-first-device"}' https://${AS_HOST}/wirelessmesh/activate-device
 ```
