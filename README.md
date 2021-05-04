@@ -91,7 +91,7 @@ curl -X POST -H "Content-Type: application/json"  --data '{"customer_location_id
 * You should see a response of '200(OK) {}', this will be the response of any POST
 * You can now create a GET request to 'https://winter-mountain-2372.us-east1.apps.akkaserverless.com/wirelessmesh/get-customer-location?customer_location_id=my-first-location'
 
-Or use curl command
+Or using Curl:
 ```
 curl https://${AS_HOST}/wirelessmesh/get-customer-location?customer_location_id=my-first-location
 ```
