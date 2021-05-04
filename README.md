@@ -123,7 +123,7 @@ curl https://${AS_HOST}/wirelessmesh/get-customer-location?customer_location_id=
 * You should see a json response with your customer location and a collection of your single device with the room assigned and the nightlight on
 * Create a POST request to 'https://winter-mountain-2372.us-east1.apps.akkaserverless.com/wirelessmesh/remove-device' with the body '{"customer_location_id": "my-first-location", "device_id": "my-first-device"}'
 
-For example,
+Or using Curl:
 ```
 curl -X POST -H "Content-Type: application/json"  --data '{"customer_location_id": "my-first-location", "device_id": "my-first-device"}' https://${AS_HOST}/wirelessmesh/remove-device
 ```
