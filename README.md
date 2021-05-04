@@ -82,7 +82,7 @@ To test using Postman(or curl).
 * Assuming you have deployed to akkaserverless and exposed your service to 'winter-mountain-2372.us-east1.apps.akkaserverless.com'...
 * Create a Postman POST request to 'https://winter-mountain-2372.us-east1.apps.akkaserverless.com/wirelessmesh/add-customer-location' with the json body '{"customer_location_id": "my-first-location", "access_token": "my lifx access token if applicable in alphanumeric"}'
 
-Or use curl command
+Or use curl command (NOTE: Assume access_token is "abcd1234", you can set it to any alphanumeric)
 ```
 export AS_HOST=winter-mountain-2372.us-east1.apps.akkaserverless.com
 
