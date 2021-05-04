@@ -37,7 +37,7 @@ To connect Akka Serverless to your Google Cloud Pub/Sub you must authenticate us
 Now use the [akkasls](https://developer.lightbend.com/docs/akka-serverless/getting-started/set-up-development-env.html) command-line tool to give Akka Serverless access to your broker:
 
 ```
-akkasls project set broker --broker-service gcp-pubsub --gcp-project-id testing-pubsub-310212 --gcp-key-file testing-pubsub-310212-fec7d0612927.json
+akkasls project set broker --broker-service gcp-pubsub --gcp-key-file testing-pubsub-310212-fec7d0612927.json
 ```
 
 ### LIFX integration for toggling nightlight
