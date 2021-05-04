@@ -110,7 +110,7 @@ curl -X POST -H "Content-Type: application/json"  --data '{"customer_location_id
 ```
 * Create a POST requset to 'https://winter-mountain-2372.us-east1.apps.akkaserverless.com/wirelessmesh/toggle-nightlight' with the body '{"customer_location_id": "my-first-location", "device_id": "my-first-device"}'
 
-Or use curl command
+Or using Curl:
 ```
 curl -X POST -H "Content-Type: application/json"  --data '{"customer_location_id": "my-first-location", "device_id": "my-first-device"}' https://${AS_HOST}/wirelessmesh/toggle-nightlight
 ```
