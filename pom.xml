@@ -10,9 +10,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-
-        <!-- TODO Update to your own Docker repository or Docker Hub scope -->
-        <akkaserverless.dockerImage>my-docker-repo/${project.artifactId}</akkaserverless.dockerImage>
+        <akkaserverless.dockerImage>${namespace}/akkaserverless-wirelessmesh-java</akkaserverless.dockerImage>
         <akkaserverless.dockerTag>${project.version}</akkaserverless.dockerTag>
         <jdk.target>11</jdk.target>
         <mainClass>wirelessmesh.WirelessMeshMain</mainClass>
