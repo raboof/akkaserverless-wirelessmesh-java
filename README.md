@@ -44,7 +44,7 @@ gcloud projects list
 gcloud config set project  <PROJECT_ID>
 
 # create project "wirelessmesh"
- gcloud pubsub topics create wirelessmesh
+gcloud pubsub topics create wirelessmesh
 ```
 
 After it, you can validate if the "wirelessmesh" topic exists by command
@@ -164,7 +164,10 @@ curl https://${AS_HOST}/wirelessmesh/get-customer-location?customer_location_id=
 ```
 
 ## Tips to debug Google Cloud Pub/Sub
-### CLI commands
+
+We can debug Google Cloud Pub/Sub with GUI https://console.cloud.google.com/cloudpubsub
+
+or by using the following CLI commands
 ```
 # list topics
 gcloud pubsub topics list
@@ -184,9 +187,6 @@ gcloud pubsub subscriptions create <subscription> --topic=<topic>
 # pull data from subscriptions
 gcloud pubsub subscriptions pull <subscription>
 ```
-
-### GUI
-https://console.cloud.google.com/cloudpubsub
 
 ## Contributing
 
