@@ -100,7 +100,7 @@ _The above command will deploy your container to your default project with the n
 ### The Google Cloud Pub/Sub code explain
 
 In the proto file,
-- `eventing.in.topic`: to define which subscription to read data.
+- `eventing.in.topic`: to define which topic to subscribe for reading data. (Code will create a description for the topic)
 - `eventing.out.topic`: to define which topic to write data.
 
 In this example, there is no `eventing.in.topic`. So we don't generate any view from Google Cloud Pub/Sub.
