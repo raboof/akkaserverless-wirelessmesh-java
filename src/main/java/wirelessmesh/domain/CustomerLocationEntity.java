@@ -42,6 +42,8 @@ import java.util.stream.Stream;
 
      private String email = "";
 
+     private String zipcode = "";
+
      private List<Device> devices = new ArrayList<Device>();
 
      /**
@@ -74,6 +76,7 @@ import java.util.stream.Stream;
                      .setCustomerLocationId(addCustomerLocationCommand.getCustomerLocationId())
                      .setAccessToken(addCustomerLocationCommand.getAccessToken())
                      .setEmail(addCustomerLocationCommand.getEmail())
+                     .setZipcode(addCustomerLocationCommand.getZipcode())
                      .build();
 
              ctx.emit(event);
@@ -94,6 +97,7 @@ import java.util.stream.Stream;
          this.removed = false;
          this.accessToken = customerLocationAdded.getAccessToken();
          this.email = customerLocationAdded.getEmail();
+         this.zipcode = customerLocationAdded.getZipcode();
      }
 
      /**
@@ -324,6 +328,7 @@ import java.util.stream.Stream;
          return CustomerLocation.newBuilder().setCustomerLocationId(customerLocationId)
                  .setAccessToken("[hidden]")
                  .setEmail(email)
+                 .setZipcode(zipcode)
                  .setAdded(added)
                  .setRemoved(removed)
                  .addAllDevices(devices).build();

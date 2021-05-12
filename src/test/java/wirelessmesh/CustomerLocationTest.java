@@ -21,6 +21,7 @@ public class CustomerLocationTest {
     String customerLocationId = "customerId1";
     String accessToken = "accessToken";
     String email = "me@you.com";
+    String zipcode = "07701";
     String room = "person-cave";
 
     public CustomerLocationTest() {}
@@ -168,12 +169,14 @@ public class CustomerLocationTest {
                 .setCustomerLocationId(customerLocationId)
                 .setAccessToken(accessToken)
                 .setEmail(email)
+                .setZipcode(zipcode)
                 .build();
 
         customerLocation.addCustomerLocation(AddCustomerLocationCommand.newBuilder()
                 .setCustomerLocationId(customerLocationId)
                 .setAccessToken(accessToken)
                 .setEmail(email)
+                .setZipcode(zipcode)
                 .build(), context);
 
         Mockito.verify(context).emit(added);

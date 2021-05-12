@@ -30,6 +30,7 @@ public class IntegrationTest {
     String accessToken = "accessToken";
     String room = "person-cave";
     String email = "me@you.com";
+    String zipcode = "07701";
 
     public IntegrationTest() {
         this.client = WirelessMeshServiceClient.create(testkit.getGrpcClientSettings(), testkit.getActorSystem());
@@ -154,6 +155,7 @@ public class IntegrationTest {
                 .setCustomerLocationId(customerLocationId)
                 .setAccessToken(accessToken)
                 .setEmail(email)
+                .setZipcode(zipcode)
                 .build())
                 .toCompletableFuture().get();
     }

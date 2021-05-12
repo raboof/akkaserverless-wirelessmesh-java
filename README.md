@@ -80,7 +80,7 @@ _The above command will deploy your container to your default project with the n
 To test using Postman(or curl).
 * First install Postman, [found here](https://www.postman.com)
 * Assuming you have deployed to akkaserverless and exposed your service to 'winter-mountain-2372.us-east1.apps.akkaserverless.com'...
-* Create a Postman POST request to 'https://winter-mountain-2372.us-east1.apps.akkaserverless.com/wirelessmesh/add-customer-location' with the json body '{"customer_location_id": "my-first-location", "access_token": "my lifx access token if applicable in alphanumeric"}'
+* Create a Postman POST request to 'https://winter-mountain-2372.us-east1.apps.akkaserverless.com/wirelessmesh/add-customer-location' with the json body '{"customer_location_id": "my-first-location", "access_token": "my lifx access token if applicable in alphanumeric", "email": "some@email.com", "zipcode": "11111"}'
 
 Or using Curl (NOTE: Assume access_token is "abcd1234", you can set it to any alphanumeric):
 ```
