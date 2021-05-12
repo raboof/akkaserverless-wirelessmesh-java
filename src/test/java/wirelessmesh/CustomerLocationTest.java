@@ -73,6 +73,7 @@ public class CustomerLocationTest {
         CustomerLocationEntity entity = createAndAddCustomerLocation();
         CustomerLocationRemoved removed = CustomerLocationRemoved.newBuilder()
                 .setCustomerLocationId(customerLocationId)
+                .setZipcode(zipcode)
                 .build();
 
         entity.removeCustomerLocation(RemoveCustomerLocationCommand.newBuilder()

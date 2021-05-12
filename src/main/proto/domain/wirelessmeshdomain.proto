@@ -15,6 +15,7 @@ message CustomerLocationAdded {
 
 message CustomerLocationRemoved {
   string customerLocationId = 1;
+  string zipcode = 2;
 }
 
 message DeviceActivated {

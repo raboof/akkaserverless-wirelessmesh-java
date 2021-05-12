@@ -117,6 +117,7 @@ import java.util.stream.Stream;
          else {
              CustomerLocationRemoved event = CustomerLocationRemoved.newBuilder()
                      .setCustomerLocationId(removeCustomerLocationCommand.getCustomerLocationId())
+                     .setZipcode(zipcode)
                      .build();
 
              ctx.emit(event);
