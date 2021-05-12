@@ -30,8 +30,30 @@ To build and deploy this example application, you'll need to have:
 
 ### Prepare your Google Could Pubsub
 
+#### Step 1: create a Google Could Pubsub topic
 Create a Pub/Sub topic called 'wirelessmesh' under your own Google Cloud account.
+For example,
+```
+# login to google cloud
+gcloud auth login
 
+# list all projects
+gcloud projects list
+
+# set to the Google Cloud Pub/Sub project
+gcloud config set project  <PROJECT_ID>
+
+# create project "wirelessmesh"
+ gcloud pubsub topics create wirelessmesh
+```
+
+After it, you can validate if the "wirelessmesh" topic exists by command
+```
+gcloud pubsub topics list
+```
+Or check it in Google Cloud Console https://console.cloud.google.com/cloudpubsub/topic/list
+
+#### Step 2: set up service account key file
 To connect Akka Serverless to your Google Cloud Pub/Sub you must authenticate using a service account. To create your [service account](https://cloud.google.com/docs/authentication/production#cloud-console). After creating your service account, you need to download the service account key as a JSON file.
 
 Now use the [akkasls](https://developer.lightbend.com/docs/akka-serverless/getting-started/set-up-development-env.html) command-line tool to give Akka Serverless access to your broker:
@@ -140,6 +162,31 @@ Or using Curl:
 ```
 curl https://${AS_HOST}/wirelessmesh/get-customer-location?customer_location_id=my-first-location
 ```
+
+## Tips to debug Google Cloud Pub/Sub
+### CLI commands
+```
+# list topics
+gcloud pubsub topics list
+
+# list subscriptions
+gcloud pubsub subscriptions list
+
+# list subscriptions associate with the topic
+gcloud pubsub topics list-subscriptions <topic>
+
+# create a topic
+gcloud pubsub topics create <topic>
+
+# create a subscription for the topic
+gcloud pubsub subscriptions create <subscription> --topic=<topic>
+
+# pull data from subscriptions
+gcloud pubsub subscriptions pull <subscription>
+```
+
+### GUI
+https://console.cloud.google.com/cloudpubsub
 
 ## Contributing
 
