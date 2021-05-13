@@ -7,34 +7,36 @@ package wirelessmeshdomain;
 **/
 
 message CustomerLocationAdded {
-    string customerLocationId = 1;
-    string accessToken = 2;
-    string email = 3;
+  string customerLocationId = 1;
+  string accessToken = 2;
+  string email = 3;
+  string zipcode = 4;
 }
 
 message CustomerLocationRemoved {
-    string customerLocationId = 1;
+  string customerLocationId = 1;
+  string zipcode = 2;
 }
 
 message DeviceActivated {
-    string deviceId = 1;
-    string customerLocationId = 2;
+  string deviceId = 1;
+  string customerLocationId = 2;
 }
 
 message DeviceRemoved {
-    string deviceId = 1;
-    string customerLocationId = 2;
+  string deviceId = 1;
+  string customerLocationId = 2;
 }
 
 message RoomAssigned {
-    string deviceId = 1;
-    string customerLocationId = 2;
-    string room = 3;
+  string deviceId = 1;
+  string customerLocationId = 2;
+  string room = 3;
 }
 
 message NightlightToggled {
-    string deviceId = 1;
-    string customerLocationId = 2;
-    bool nightlightOn = 3;
-    string accessToken = 4;
+  string deviceId = 1;
+  string customerLocationId = 2;
+  bool nightlightOn = 3;
+  string accessToken = 4;
 }

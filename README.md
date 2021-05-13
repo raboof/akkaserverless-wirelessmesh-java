@@ -145,13 +145,16 @@ To test using Postman(or curl).
 gcloud pubsub subscriptions pull wirelessmesh-feed
 ```
 Check if there is any data in the feed.
-* **Test 1:** Create a Postman POST request to 'https://winter-mountain-2372.us-east1.apps.akkaserverless.com/wirelessmesh/add-customer-location' with the json body '{"customer_location_id": "my-first-location", "access_token": "my access token if applicable in alphanumeric"}'
+* **Test 1:** Create a Postman POST request to 'https://winter-mountain-2372.us-east1.apps.akkaserverless.com/wirelessmesh/add-customer-location' with the json body '{"customer_location_id": "my-first-location", "access_token": "my life access token if applicable in alphanumeric", "email": "some@email.com", "zipcode": "11111"}'
 
 Or using Curl (NOTE: Assume access_token is "abcd1234", you can set it to any alphanumeric):
 ```
+# setup env variable for exposed route 
 export AS_HOST=winter-mountain-2372.us-east1.apps.akkaserverless.com
-
-curl -X POST -H "Content-Type: application/json"  --data '{"customer_location_id": "my-first-location", "access_token": "abcd1234"}' https://${AS_HOST}/wirelessmesh/add-customer-location
+```
+and run
+```
+curl -X POST -H "Content-Type: application/json"  --data '{"customer_location_id": "my-first-location", "access_token": "abcd1234", "email": "some@email.com", "zipcode": "11111"}' https://${AS_HOST}/wirelessmesh/add-customer-location
 ```
 * You should see a response of '200(OK) {}', this will be the response of any POST
 * Ideally it should trigger PublishCustomerLocationAdded action, which write data to topic "wirelessmesh", we can check it by command

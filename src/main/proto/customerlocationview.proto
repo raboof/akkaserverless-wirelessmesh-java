@@ -8,7 +8,7 @@ package customerlocationview;
 import "domain/wirelessmeshdomain.proto";
 
 message CustomerLocationByEmailRequest {
-    string email = 1;
+  string email = 1;
 }
 
 message CustomerLocationDto {
@@ -17,24 +17,22 @@ message CustomerLocationDto {
 }
 
 service CustomerLocationByEmailService {
-    rpc UpdateCustomerLocation(wirelessmeshdomain.CustomerLocationAdded) returns (CustomerLocationDto) {
-        option (akkaserverless.method).eventing = {
-          in: {
-            event_sourced_entity: "customer-location-entity"
-          }
-        };
-        option (akkaserverless.method).view.update = {
-          table: "customer_locations"
-          transform_updates: true
-        };
-    }
+  rpc UpdateCustomerLocation(wirelessmeshdomain.CustomerLocationAdded) returns (CustomerLocationDto) {
+    option (akkaserverless.method).eventing.in = {
+      event_sourced_entity: "customer-location-entity"
+    };
+    option (akkaserverless.method).view.update = {
+      table: "customer_locations"
+      transform_updates: true
+    };
+  }
 
-    rpc GetCustomerLocationByEmail(CustomerLocationByEmailRequest) returns (stream CustomerLocationDto) {
-        option (akkaserverless.method).view.query = {
-          query: "SELECT * FROM customer_locations WHERE email = :email"
-        };
-        option (google.api.http) = {
-          get: "/wirelessmesh/customer-locations"
-        };
-    }
+  rpc GetCustomerLocationByEmail(CustomerLocationByEmailRequest) returns (stream CustomerLocationDto) {
+    option (akkaserverless.method).view.query = {
+      query: "SELECT * FROM customer_locations WHERE email = :email"
+    };
+    option (google.api.http) = {
+      get: "/wirelessmesh/customer-locations"
+    };
+  }
 }

@@ -10,23 +10,32 @@ import "domain/wirelessmeshdomain.proto";
 package publishing;
 
 service PublishingService {
-    rpc PublishCustomerLocationAdded(wirelessmeshdomain.CustomerLocationAdded) returns (wirelessmeshdomain.CustomerLocationAdded) {
-        option (akkaserverless.method).eventing = {
-            in: {
-                event_sourced_entity: "customer-location-entity";
-            }
-            out: {
-                topic: "wirelessmesh";
-            }
-        };
+  rpc PublishCustomerLocationAdded(wirelessmeshdomain.CustomerLocationAdded) returns (wirelessmeshdomain.CustomerLocationAdded) {
+    option (akkaserverless.method).eventing = {
+      in: {
+        event_sourced_entity: "customer-location-entity";
+      }
+      out: {
+        topic: "wirelessmesh";
+      }
+    };
+  }
+
+  rpc PublishCustomerLocationRemoved(wirelessmeshdomain.CustomerLocationRemoved) returns (wirelessmeshdomain.CustomerLocationRemoved) {
+      option (akkaserverless.method).eventing = {
+        in: {
+          event_sourced_entity: "customer-location-entity";
+        }
+        out: {
+          topic: "wirelessmesh";
+        }
+      };
     }
 
     // handle other events which are not managed above
-    rpc CatchOthers(google.protobuf.Any) returns (google.protobuf.Empty) {
-        option (akkaserverless.method).eventing = {
-            in: {
-                event_sourced_entity:  "customer-location-entity"
-            }
-        };
-    };
+  rpc CatchOthers(google.protobuf.Any) returns (google.protobuf.Empty) {
+    option (akkaserverless.method).eventing.in = {
+        event_sourced_entity:  "customer-location-entity"
+     };
+  };
 }
